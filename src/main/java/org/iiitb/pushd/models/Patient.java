@@ -1,23 +1,47 @@
+package org.iiitb.pushd.models;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "patients")
 public class Patient {
-	@Id
+	@Column(name = "patientID", unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer patientID;
+
+	@Id
+	@Column(name = "username", unique = true, length = 20, nullable = false)
 	private String username;
+
+	@Column(name = "password", length = 100, nullable = false)
 	private String password;
+
+	@Column(name = "name", length = 50, nullable = false)
 	private String name;
+
+	@Column(name = "email", length = 100, unique = true, nullable = false)
 	private String email;
-	private String doctorID;
+
+	@JoinColumn(name = "doctorID")
+	@ManyToOne
+	private Doctor doctor;
 
 	public Patient() {
 	}
 
-	public Patient(Integer patientID, String username, String password, String name, String email, String doctorID) {
+	public Patient(Integer patientID, String username, String password, String name, String email) {
 		this.patientID = patientID;
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.email = email;
-		this.doctorID = doctorID;
 	}
 
 	public Integer getPatientID() {
@@ -60,47 +84,17 @@ public class Patient {
 		this.email = email;
 	}
 
-	public String getDoctorID() {
-		return doctorID;
+	public Doctor getDoctor() {
+		return doctor;
 	}
 
-	public void setDoctorID(String doctorID) {
-		this.doctorID = doctorID;
+	public void setDoctor(Doctor doctor) {
+		this.doctor = doctor;
 	}
 
 	@Override
 	public String toString() {
-		return "Patient [doctorID=" + doctorID + ", email=" + email + ", name=" + name + ", password=" + password
+		return "Patient [doctor=" + doctor + ", email=" + email + ", name=" + name + ", password=" + password
 				+ ", patientID=" + patientID + ", username=" + username + "]";
 	}
-
-	
 }
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	
-
-	

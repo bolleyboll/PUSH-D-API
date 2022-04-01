@@ -1,16 +1,30 @@
+package org.iiitb.pushd.models;
+
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
-@Entity(name = "admins")
+@Entity
+@Table(name = "admins")
 public class Admin {
-	@Id
+	@Column(name = "adminID", unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer adminID;
+
+	@Id
+	@Column(name = "username", unique = true, length = 20, nullable = false)
 	private String username;
+
+	@Column(name = "password", length = 100, nullable = false)
 	private String password;
+
+	@Column(name = "name", length = 50, nullable = false)
 	private String name;
+
+	@Column(name = "email", length = 100, unique = true, nullable = false)
 	private String email;
 
 	public Admin() {

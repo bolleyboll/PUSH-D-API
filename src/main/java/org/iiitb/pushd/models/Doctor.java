@@ -1,28 +1,47 @@
+package org.iiitb.pushd.models;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
 
+@Entity
+@Table(name = "doctors")
 public class Doctor {
-	@Id
+	@Column(name = "doctorID", unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer doctorID;
-	private String username;
-	private String password;
-	private String name;
-	private String email;
-	private String specID;
 
+	@Id
+	@Column(name = "username", unique = true, length = 20, nullable = false)
+	private String username;
+
+	@Column(name = "password", length = 100, nullable = false)
+	private String password;
+
+	@Column(name = "name", length = 50, nullable = false)
+	private String name;
+
+	@Column(name = "email", length = 100, unique = true, nullable = false)
+	private String email;
+
+	@JoinColumn(name = "specID")
+	@ManyToOne
+	private Specialist specialist;
 
 	public Doctor() {
 	}
-	
-	public Doctor(Integer doctorID, String username, String password, String name, String email, String specID) {
+
+	public Doctor(Integer doctorID, String username, String password, String name, String email) {
 		this.doctorID = doctorID;
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.email = email;
-		this.specID = specID;
 	}
 
 	public Integer getDoctorID() {
@@ -49,14 +68,6 @@ public class Doctor {
 		this.password = password;
 	}
 
-	public String getSpecID() {
-		return specID;
-	}
-
-	public void setSpecID(String specID) {
-		this.specID = specID;
-	}
-
 	public String getName() {
 		return name;
 	}
@@ -73,12 +84,17 @@ public class Doctor {
 		this.email = email;
 	}
 
+	public Specialist getSpecialist() {
+		return specialist;
+	}
+
+	public void setSpecialist(Specialist specialist) {
+		this.specialist = specialist;
+	}
+
 	@Override
 	public String toString() {
 		return "Doctor [doctorID=" + doctorID + ", email=" + email + ", name=" + name + ", password=" + password
-				+ ", specID=" + specID + ", username=" + username + "]";
+				+ ", specialist=" + specialist + ", username=" + username + "]";
 	}
-
-	
-
 }

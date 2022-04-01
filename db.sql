@@ -2,13 +2,13 @@ DROP DATABASE IF EXISTS pushd;
 CREATE DATABASE pushd; 
 use pushd;
 
-CREATE TABLE admins(adminID INT UNIQUE, username VARCHAR(20) PRIMARY KEY, password VARCHAR(100), name VARCHAR(50), email VARCHAR(100) UNIQUE);
+CREATE TABLE admins(adminID INT UNIQUE, username VARCHAR(20) PRIMARY KEY, password VARCHAR(100), name VARCHAR(50) NOT NULL, email VARCHAR(100) UNIQUE NOT NULL);
 
-CREATE TABLE specialists(specID INT UNIQUE, username VARCHAR(20) PRIMARY KEY, password VARCHAR(100), name VARCHAR(50), email VARCHAR(100) UNIQUE);
+CREATE TABLE specialists(specID INT UNIQUE, username VARCHAR(20) PRIMARY KEY, password VARCHAR(100), name VARCHAR(50) NOT NULL, email VARCHAR(100) UNIQUE NOT NULL);
 
-CREATE TABLE doctors(doctorID INT UNIQUE, username VARCHAR(20) PRIMARY KEY, password VARCHAR(100), name VARCHAR(50), email VARCHAR(100) UNIQUE, specID VARCHAR(20), FOREIGN KEY(specID) REFERENCES specialists(username));
+CREATE TABLE doctors(doctorID INT UNIQUE, username VARCHAR(20) PRIMARY KEY, password VARCHAR(100), name VARCHAR(50) NOT NULL, email VARCHAR(100) UNIQUE NOT NULL, specID VARCHAR(20), FOREIGN KEY(specID) REFERENCES specialists(username));
 
-CREATE TABLE patients(patientID INT UNIQUE, username VARCHAR(20) PRIMARY KEY, password VARCHAR(100), name VARCHAR(50), email VARCHAR(100) UNIQUE, doctorID VARCHAR(20), FOREIGN KEY(doctorID) REFERENCES doctors(username));
+CREATE TABLE patients(patientID INT UNIQUE, username VARCHAR(20) PRIMARY KEY, password VARCHAR(100), name VARCHAR(50) NOT NULL, email VARCHAR(100) UNIQUE NOT NULL, doctorID VARCHAR(20), FOREIGN KEY(doctorID) REFERENCES doctors(username));
 
 INSERT INTO admins VALUES(1, 'bolleyboll', 'password', 'Aman Gupta', 'aman.iv0012@gmail.com');
 
