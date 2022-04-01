@@ -7,8 +7,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 @Entity
 @Table(name = "admins")
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Admin {
 	@Column(name = "adminID", unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,57 +33,6 @@ public class Admin {
 
 	@Column(name = "email", length = 100, unique = true, nullable = false)
 	private String email;
-
-	public Admin() {
-	}
-
-	public Admin(Integer adminID, String username, String password, String name, String email) {
-		this.adminID = adminID;
-		this.username = username;
-		this.password = password;
-		this.name = name;
-		this.email = email;
-	}
-
-	public Integer getAdminID() {
-		return adminID;
-	}
-
-	public void setAdminID(Integer adminID) {
-		this.adminID = adminID;
-	}
-
-	public String getUsername() {
-		return username;
-	}
-
-	public void setUsername(String username) {
-		this.username = username;
-	}
-
-	public String getPassword() {
-		return password;
-	}
-
-	public void setPassword(String password) {
-		this.password = password;
-	}
-
-	public String getName() {
-		return name;
-	}
-
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public String getEmail() {
-		return email;
-	}
-
-	public void setEmail(String email) {
-		this.email = email;
-	}
 
 	@Override
 	public String toString() {
