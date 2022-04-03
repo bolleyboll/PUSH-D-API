@@ -39,10 +39,4 @@ public class Doctor {
 	@JoinColumn(name = "specID")
 	@ManyToOne
 	private Specialist specialist;
-
-	@Override
-	public String toString() {
-		return "Doctor [doctorID=" + doctorID + ", email=" + email + ", name=" + name + ", password=" + password
-				+ ", specialist=" + specialist + ", username=" + username + "]";
-	}
 }

@@ -20,23 +20,17 @@ public class Specialist {
 	@Column(name = "specID", unique = true)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer specID;
-	
+
 	@Id
 	@Column(name = "username", unique = true, length = 20, nullable = false)
 	private String username;
-	
+
 	@Column(name = "password", length = 100, nullable = false)
 	private String password;
-	
+
 	@Column(name = "name", length = 50, nullable = false)
 	private String name;
-	
+
 	@Column(name = "email", length = 100, unique = true, nullable = false)
 	private String email;
-
-	@Override
-	public String toString() {
-		return "Specialist [email=" + email + ", name=" + name + ", password=" + password + ", specID=" + specID
-				+ ", username=" + username + "]";
-	}
 }

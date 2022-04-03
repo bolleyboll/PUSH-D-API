@@ -33,10 +33,4 @@ public class Admin {
 
 	@Column(name = "email", length = 100, unique = true, nullable = false)
 	private String email;
-
-	@Override
-	public String toString() {
-		return "Admin [adminID=" + adminID + ", email=" + email + ", name=" + name + ", password=" + password
-				+ ", username=" + username + "]";
-	}
 }
