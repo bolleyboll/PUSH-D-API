@@ -8,6 +8,9 @@ import org.iiitb.pushd.models.Patient;
 import org.iiitb.pushd.models.Specialist;
 import org.iiitb.pushd.models.Status;
 import org.iiitb.pushd.repositories.AdminRepository;
+import org.iiitb.pushd.repositories.DoctorRepository;
+import org.iiitb.pushd.repositories.PatientRepository;
+import org.iiitb.pushd.repositories.SpecialistRepository;
 import org.iiitb.pushd.services.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -20,6 +23,14 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private AdminRepository ar;
 
+	@Autowired
+	private DoctorRepository dr;
+
+	@Autowired
+	private PatientRepository pr;
+
+	@Autowired
+	private SpecialistRepository sr;
 	@Override
 	public Admin saveAdmin(Admin a) {
 		return ar.save(a);
@@ -37,56 +48,74 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Doctor addDoctor(Doctor d) {
-		// TODO Auto-generated method stub
-		return null;
+		return dr.save(d);
 	}
 
 	@Override
-	public Status remDoctor(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public Integer remDoctor(String username) {
+		return dr.deleteByUsername(username);
 	}
 
 	@Override
 	public List<Doctor> getDoctors() {
-		// TODO Auto-generated method stub
-		return null;
+		return dr.findAll();
 	}
 
 	@Override
 	public Patient addPatient(Patient p) {
-		// TODO Auto-generated method stub
-		return null;
+		return pr.save(p);
 	}
 
 	@Override
-	public Status remPatient(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public Long remPatient(String username) {
+		return pr.deleteByUsername(username);
 	}
 
 	@Override
 	public List<Patient> getPatients() {
-		// TODO Auto-generated method stub
-		return null;
+		return pr.findAll();
+	}
+
+	@Override
+	public Patient getPatient(String username) {
+		return pr.findByUsername(username);
 	}
 
 	@Override
 	public Specialist addSpec(Specialist s) {
-		// TODO Auto-generated method stub
-		return null;
+		return sr.save(s);
 	}
 
 	@Override
-	public Status remSpec(String username) {
-		// TODO Auto-generated method stub
-		return null;
+	public Long remSpec(String username) {
+		return sr.deleteByUsername(username);
 	}
 
 	@Override
 	public List<Specialist> getSpecs() {
-		// TODO Auto-generated method stub
-		return null;
+		return sr.findAll();
 	}
+
+	@Override
+	public Specialist getSpec(String username) {
+		return sr.findByUsername(username);
+	}
+
+	@Override
+	public Specialist updateSpecialist(Specialist specialist) {
+		return sr.save(specialist);
+	}
+
+	@Override
+	public Patient updatePatient(Patient patient) {
+		return pr.save(patient);
+	}
+
+	@Override
+	public Doctor updateDoctor(Doctor doctor) {
+		return dr.save(doctor);
+
+	}
+
 
 }

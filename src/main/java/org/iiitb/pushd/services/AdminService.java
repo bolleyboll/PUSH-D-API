@@ -17,19 +17,29 @@ public interface AdminService {
 
 	Doctor addDoctor(Doctor d);
 
-	Status remDoctor(String username);
+	Integer remDoctor(String username);
 
 	List<Doctor> getDoctors();
 
 	Patient addPatient(Patient p);
 
-	Status remPatient(String username);
+	Long remPatient(String username);
 
 	List<Patient> getPatients();
 
+	Patient getPatient(String username);
+
 	Specialist addSpec(Specialist s);
 
-	Status remSpec(String username);
+	Long remSpec(String username);
 
 	List<Specialist> getSpecs();
+
+	Specialist getSpec(String username);
+
+	Specialist updateSpecialist(Specialist specialist);
+
+	Patient updatePatient(Patient patient);
+
+	Doctor updateDoctor(Doctor doctor);
 }
