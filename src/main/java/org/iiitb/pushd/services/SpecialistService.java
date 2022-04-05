@@ -9,6 +9,8 @@ import org.iiitb.pushd.models.Status;
 public interface SpecialistService {
 	Specialist saveSpec(Specialist d);
 
+	Specialist login(String username, String password);
+
 	Status changeDoc(String pat, String newDocUname);
 
 	List<Doctor> getSpecDocs(String specUname);

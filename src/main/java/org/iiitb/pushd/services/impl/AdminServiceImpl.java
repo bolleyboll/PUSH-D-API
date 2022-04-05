@@ -89,4 +89,9 @@ public class AdminServiceImpl implements AdminService {
 		return null;
 	}
 
+	@Override
+	public Admin login(String username, String password) {
+		return ar.findByUsernameAndPassword(username, password);
+	}
+
 }

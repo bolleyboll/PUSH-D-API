@@ -11,6 +11,8 @@ import org.iiitb.pushd.models.Status;
 public interface AdminService {
 	Admin saveAdmin(Admin a);
 
+	Admin login(String username, String password);
+
 	boolean remAdmin(String username);
 
 	List<Admin> getAdmins();

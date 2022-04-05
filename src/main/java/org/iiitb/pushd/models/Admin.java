@@ -6,6 +6,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+
 @Entity
 @Table(name = "admins")
 public class Admin {
@@ -84,5 +85,4 @@ public class Admin {
 				+ ", username=" + username + "]";
 	}
 
-	
 }
