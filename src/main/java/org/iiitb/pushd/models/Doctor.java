@@ -9,17 +9,10 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
-
 @Entity
 @Table(name = "doctors")
-@Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Doctor {
-	@Column(name = "doctorID", unique = true)
+	@Column(name = "adminID", unique = true, nullable = false, updatable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer doctorID;
 
@@ -39,4 +32,73 @@ public class Doctor {
 	@JoinColumn(name = "specID")
 	@ManyToOne
 	private Specialist specialist;
+
+	public Doctor() {
+	}
+
+	public Doctor(Integer doctorID, String username, String password, String name, String email,
+			Specialist specialist) {
+		this.doctorID = doctorID;
+		this.username = username;
+		this.password = password;
+		this.name = name;
+		this.email = email;
+		this.specialist = specialist;
+	}
+
+	public Integer getDoctorID() {
+		return doctorID;
+	}
+
+	public void setDoctorID(Integer doctorID) {
+		this.doctorID = doctorID;
+	}
+
+	public String getUsername() {
+		return username;
+	}
+
+	public void setUsername(String username) {
+		this.username = username;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Specialist getSpecialist() {
+		return specialist;
+	}
+
+	public void setSpecialist(Specialist specialist) {
+		this.specialist = specialist;
+	}
+
+	@Override
+	public String toString() {
+		return "Doctor [doctorID=" + doctorID + ", email=" + email + ", name=" + name + ", password=" + password
+				+ ", specialist=" + specialist + ", username=" + username + "]";
+	}
+
+	
 }

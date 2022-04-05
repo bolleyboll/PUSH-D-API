@@ -1,8 +1,10 @@
 package org.iiitb.pushd.startup;
 
+import org.iiitb.pushd.models.Admin;
 import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Patient;
 import org.iiitb.pushd.models.Specialist;
+import org.iiitb.pushd.repositories.AdminRepository;
 import org.iiitb.pushd.repositories.DoctorRepository;
 import org.iiitb.pushd.repositories.PatientRepository;
 import org.iiitb.pushd.repositories.SpecialistRepository;
@@ -13,6 +15,10 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class Start {
+
+	@Autowired
+	private AdminRepository ar;
+
 	@Autowired
 	private PatientRepository pr;
 
@@ -25,15 +31,23 @@ public class Start {
 	@EventListener(ContextRefreshedEvent.class)
 	public void te() {
 		System.out.println("Henlo");
-		// Specialist s = new Specialist(100, "spec1", "password", "Spec", "spec@gmail.com");
-		// sr.save(s);
 
-		// Doctor d = new Doctor(500, "doc1", "pass", "Doc1", "doc@gmail.com");
-		// d.setSpecialist(s);
-		// dr.save(d);
+		Admin a = new Admin(1, "bolleyboll", "password", "Aman Gupta", "aman.iv0012@gmail.com");
+		ar.save(a);
 
-		// Patient p = new Patient(200, "pat1", "pass", "Pat1", "pat@gmai.com");
-		// p.setDoctor(d);
-		// pr.save(p);
+		Specialist s = new Specialist(1, "vishalg", "password", "Vishal Govil", "Vishal.Govil@iiitb.ac.in");
+		sr.save(s);
+
+		Doctor d = new Doctor(1, "nikhilm", "password", "Nikhil Mittal", "Nikhil.Mittal@iiitb.ac.in", s);
+		Doctor d1 = new Doctor(2, "shubhamn", "password", "Shubham Nigam", "Shubham.Nigam@iiitb.ac.in", s);
+		dr.save(d);
+		dr.save(d1);
+
+		Patient p = new Patient(1, "kunals", "password", "Kunal Sharma", "Kunal.Sharma@iiitb.ac.in", d);
+		Patient p1 = new Patient(2, "suchil", "password", "Suchi Laad", "suchi.laad@iiitb.ac.in", d);
+		Patient p2 = new Patient(3, "random", "password", "RCB", "rcb@gmail.com", d1);
+		pr.save(p);
+		pr.save(p1);
+		pr.save(p2);
 	}
 }

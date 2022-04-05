@@ -7,14 +7,8 @@ import org.iiitb.pushd.models.Patient;
 import org.iiitb.pushd.services.DoctorService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class DoctorServiceImpl implements DoctorService {
 
 	@Override
@@ -24,13 +18,7 @@ public class DoctorServiceImpl implements DoctorService {
 	}
 
 	@Override
-	public boolean remDoctor(String username) {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	@Override
-	public List<Patient> getDocPatients(Integer n) {
+	public List<Patient> getDocPatients(String docUname) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -40,5 +28,5 @@ public class DoctorServiceImpl implements DoctorService {
 		// TODO Auto-generated method stub
 		return false;
 	}
-	
+
 }

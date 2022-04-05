@@ -9,25 +9,14 @@ import org.iiitb.pushd.services.SpecialistService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class SpecialistServiceImpl implements SpecialistService{
 
 	@Override
 	public Specialist saveSpec(Specialist d) {
 		// TODO Auto-generated method stub
 		return null;
-	}
-
-	@Override
-	public boolean remSpec(String username) {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 	@Override
@@ -41,5 +30,5 @@ public class SpecialistServiceImpl implements SpecialistService{
 		// TODO Auto-generated method stub
 		return null;
 	}
-	
+
 }

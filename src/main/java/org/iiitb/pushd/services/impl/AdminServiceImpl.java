@@ -7,35 +7,32 @@ import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Patient;
 import org.iiitb.pushd.models.Specialist;
 import org.iiitb.pushd.models.Status;
+import org.iiitb.pushd.repositories.AdminRepository;
 import org.iiitb.pushd.services.AdminService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
-
 @Service
-@RequiredArgsConstructor
 @Transactional
-@Slf4j
 public class AdminServiceImpl implements AdminService {
+
+	@Autowired
+	private AdminRepository ar;
 
 	@Override
 	public Admin saveAdmin(Admin a) {
-		// TODO Auto-generated method stub
-		return null;
+		return ar.save(a);
 	}
 
 	@Override
 	public boolean remAdmin(String username) {
-		// TODO Auto-generated method stub
-		return false;
+		return ar.deleteByUsername(username);
 	}
 
 	@Override
-	public List<Admin> getAdmins(Integer n) {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Admin> getAdmins() {
+		return ar.findAll();
 	}
 
 	@Override
@@ -51,7 +48,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Doctor> getDoctors(Integer n) {
+	public List<Doctor> getDoctors() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -69,7 +66,7 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Patient> getPatients(Integer n) {
+	public List<Patient> getPatients() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -87,11 +84,9 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public List<Specialist> getSpecs(Integer n) {
+	public List<Specialist> getSpecs() {
 		// TODO Auto-generated method stub
 		return null;
 	}
-
-	
 
 }

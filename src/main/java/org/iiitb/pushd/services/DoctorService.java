@@ -8,9 +8,7 @@ import org.iiitb.pushd.models.Patient;
 public interface DoctorService {
 	Doctor saveDoctor(Doctor d);
 
-	boolean remDoctor(String username);
-
-	List<Patient> getDocPatients(Integer n);
+	List<Patient> getDocPatients(String docUname);
 
 	boolean alterPatientSecOrder(String username, String newOrder);
 }

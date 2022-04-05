@@ -13,23 +13,23 @@ public interface AdminService {
 
 	boolean remAdmin(String username);
 
-	List<Admin> getAdmins(Integer n);
+	List<Admin> getAdmins();
 
 	Doctor addDoctor(Doctor d);
 
 	Status remDoctor(String username);
 
-	List<Doctor> getDoctors(Integer n);
+	List<Doctor> getDoctors();
 
 	Patient addPatient(Patient p);
 
 	Status remPatient(String username);
 
-	List<Patient> getPatients(Integer n);
+	List<Patient> getPatients();
 
 	Specialist addSpec(Specialist s);
 
 	Status remSpec(String username);
 
-	List<Specialist> getSpecs(Integer n);
+	List<Specialist> getSpecs();
 }
