@@ -25,8 +25,8 @@ public class SpecialistServiceImpl implements SpecialistService {
 	}
 
 	@Override
-	public Status changeDoc(String pat, String newDocUname) {
-		// TODO Auto-generated method stub
+	public String changeDoc(String patUname, String newDocUname) {
+
 		return null;
 	}
 
