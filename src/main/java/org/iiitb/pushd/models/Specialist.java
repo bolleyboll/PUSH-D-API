@@ -10,7 +10,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "specialists")
 public class Specialist {
-	@Column(name = "adminID", unique = true, nullable = false, updatable = false)
+	@Column(name = "specID", unique = true, nullable = false, updatable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer specID;
 

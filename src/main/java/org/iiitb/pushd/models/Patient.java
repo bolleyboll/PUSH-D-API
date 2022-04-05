@@ -12,7 +12,7 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "patients")
 public class Patient {
-	@Column(name = "adminID", unique = true, nullable = false, updatable = false)
+	@Column(name = "patientID", unique = true, nullable = false, updatable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer patientID;
 
