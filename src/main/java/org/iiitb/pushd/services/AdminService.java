@@ -6,7 +6,6 @@ import org.iiitb.pushd.models.Admin;
 import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Patient;
 import org.iiitb.pushd.models.Specialist;
-import org.iiitb.pushd.models.Status;
 
 public interface AdminService {
 	Admin saveAdmin(Admin a);
