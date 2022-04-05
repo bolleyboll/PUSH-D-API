@@ -5,6 +5,7 @@ import java.util.List;
 import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Patient;
 import org.iiitb.pushd.repositories.DoctorRepository;
+import org.iiitb.pushd.repositories.PatientRepository;
 import org.iiitb.pushd.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -15,6 +16,8 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Autowired
 	private DoctorRepository dr;
+	@Autowired
+	private PatientRepository pr;
 	
 	@Override
 	public Doctor saveDoctor(Doctor d) {
@@ -24,8 +27,7 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public List<Patient> getDocPatients(String docUname) {
-		// TODO Auto-generated method stub
-		return null;
+		return pr.findPatientsByDoctor_Username(docUname);
 	}
 
 	@Override

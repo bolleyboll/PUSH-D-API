@@ -11,7 +11,7 @@ public interface SpecialistService {
 
 	Specialist login(String username, String password);
 
-	String changeDoc(String pat, String newDocUname);
+	boolean changeDoc(String pat, String newDocUname);
 
 	List<Doctor> getSpecDocs(String specUname);
 }

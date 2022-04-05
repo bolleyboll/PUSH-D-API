@@ -3,8 +3,11 @@ package org.iiitb.pushd.services.impl;
 import java.util.List;
 
 import org.iiitb.pushd.models.Doctor;
+import org.iiitb.pushd.models.Patient;
 import org.iiitb.pushd.models.Specialist;
 import org.iiitb.pushd.models.Status;
+import org.iiitb.pushd.repositories.DoctorRepository;
+import org.iiitb.pushd.repositories.PatientRepository;
 import org.iiitb.pushd.repositories.SpecialistRepository;
 import org.iiitb.pushd.services.SpecialistService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,10 @@ public class SpecialistServiceImpl implements SpecialistService {
 
 	@Autowired
 	private SpecialistRepository sr;
+	@Autowired
+	private DoctorRepository dr;
+	@Autowired
+	private PatientRepository pr;
 	
 	@Override
 	public Specialist saveSpec(Specialist d) {
@@ -25,15 +32,17 @@ public class SpecialistServiceImpl implements SpecialistService {
 	}
 
 	@Override
-	public String changeDoc(String patUname, String newDocUname) {
-
-		return null;
+	public boolean changeDoc(String patUname, String newDocUname) {
+		Patient p = pr.findByUsername(patUname);
+		Doctor d = dr.findByUsername(newDocUname);
+		p.setDoctor(d);
+		pr.save(p);
+		return true;
 	}
 
 	@Override
 	public List<Doctor> getSpecDocs(String specUname) {
-		// TODO Auto-generated method stub
-		return null;
+		return dr.findDoctorsBySpecialist_Username(specUname);
 	}
 
 	@Override
