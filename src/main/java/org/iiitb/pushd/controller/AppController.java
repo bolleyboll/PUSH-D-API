@@ -88,86 +88,72 @@ public class AppController {
 	}
 
 	@GetMapping("/doctors")
-	public List<Doctor> getDoctors()
-	{
+	public List<Doctor> getDoctors() {
 		return as.getDoctors();
 	}
 
-	@PostMapping("/doctors")
-	public void addDoctor(@RequestBody Doctor d)
-	{
+	@PostMapping("/doctor/add")
+	public void addDoctor(@RequestBody Doctor d) {
 		this.as.addDoctor(d);
 	}
 
 	@DeleteMapping("/doctors/{username}")
-	public Integer remDoctor(@PathVariable String username)
-	{
+	public Integer remDoctor(@PathVariable String username) {
 		return this.as.remDoctor(username);
 	}
 
-	@PostMapping("/patients")
-	public void addPatient(@RequestBody Patient p)
-	{
+	@PostMapping("/patient/add")
+	public void addPatient(@RequestBody Patient p) {
 		this.as.addPatient(p);
 	}
 
 	@GetMapping("/patients")
-	public List<Patient> getPatients()
-	{
+	public List<Patient> getPatients() {
 		return this.as.getPatients();
 	}
 
 	@DeleteMapping("/patients/{username}")
-	public Long deletePatient(@PathVariable String username)
-	{
+	public Long deletePatient(@PathVariable String username) {
 		return this.as.remPatient(username);
 	}
 
 	@GetMapping("/patients/{username}")
-	public Patient getPatient(@PathVariable String username)
-	{
+	public Patient getPatient(@PathVariable String username) {
 		return this.as.getPatient(username);
 	}
 
-	@PostMapping("/specialists")
-	public void addSpecialist(@RequestBody Specialist sp)
-	{
+	@PostMapping("/specialist/add")
+	public void addSpecialist(@RequestBody Specialist sp) {
 		this.as.addSpec(sp);
 	}
 
 	@DeleteMapping("/specialists/{username}")
-	public Long deleteSpecialist(@PathVariable String username)
-	{
+	public Long deleteSpecialist(@PathVariable String username) {
 		return this.as.remSpec(username);
 	}
 
 	@GetMapping("/specialists/{username}")
-	public Specialist getSpecialist(@PathVariable String username)
-	{
+	public Specialist getSpecialist(@PathVariable String username) {
 		return this.as.getSpec(username);
 	}
 
 	@GetMapping("/specialists")
-	public List<Specialist> getSpecialists()
-	{
+	public List<Specialist> getSpecialists() {
 		return this.as.getSpecs();
 	}
 
-	@PutMapping("/specialists")
-	public Specialist updateSpecialist(@RequestBody Specialist sp)
-	{
+	@PutMapping("/specialist/update")
+	public Specialist updateSpecialist(@RequestBody Specialist sp) {
 		return this.as.updateSpecialist(sp);
 	}
 
-	@PutMapping("/patients")
-	public Patient updatePatient(@RequestBody Patient pt)
-	{
+	@PutMapping("/patient/update")
+	public Patient updatePatient(@RequestBody Patient pt) {
 		return this.as.updatePatient(pt);
 	}
 
-	@PutMapping("/doctors")
-	public Doctor updateDoctor(@RequestBody Doctor dr)
-	{
+	@PutMapping("/doctor/update")
+	public Doctor updateDoctor(@RequestBody Doctor dr) {
 		return this.as.updateDoctor(dr);
 	}
 }

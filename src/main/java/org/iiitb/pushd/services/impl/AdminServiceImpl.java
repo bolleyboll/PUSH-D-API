@@ -30,6 +30,7 @@ public class AdminServiceImpl implements AdminService {
 
 	@Autowired
 	private SpecialistRepository sr;
+
 	@Override
 	public Admin saveAdmin(Admin a) {
 		return ar.save(a);
@@ -119,6 +120,5 @@ public class AdminServiceImpl implements AdminService {
 		return dr.save(doctor);
 
 	}
-
 
 }
