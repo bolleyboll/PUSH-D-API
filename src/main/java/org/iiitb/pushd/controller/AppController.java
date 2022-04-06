@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 public class AppController {
+	private static final String ORIGIN_URL = "http://localhost:3000";
 
 	@Autowired
 	private AdminService as;
@@ -30,7 +31,7 @@ public class AppController {
 	@Autowired
 	private SpecialistService ss;
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("/patient/register")
 	public ResponseEntity<String> patRegister(@RequestBody Patient pat)
 	{
@@ -46,7 +47,7 @@ public class AppController {
 
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("/patient/signin")
 	public ResponseEntity<String> patLogin(@RequestBody Patient pat) {
 		String uname = pat.getUsername();
@@ -60,7 +61,7 @@ public class AppController {
 		}
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("/doctor/signin")
 	public ResponseEntity<String> docLogin(@RequestBody Doctor doc) {
 		String uname = doc.getUsername();
@@ -74,7 +75,7 @@ public class AppController {
 		}
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("/admin/signin")
 	public ResponseEntity<String> adminLogin(@RequestBody Admin admin) {
 		String uname = admin.getUsername();
@@ -88,7 +89,7 @@ public class AppController {
 		}
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("/spec/signin")
 	public ResponseEntity<String> specLogin(@RequestBody Specialist spec) {
 		String uname = spec.getUsername();
@@ -102,93 +103,114 @@ public class AppController {
 		}
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@GetMapping("/admins")
 	public ResponseEntity<List<Admin>> getAdmins() {
 		return ResponseEntity.ok().body(as.getAdmins());
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@GetMapping("/doctors")
 	public List<Doctor> getDoctors() {
 		return as.getDoctors();
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("/doctor/add")
 	public void addDoctor(@RequestBody Doctor d) {
 		this.as.addDoctor(d);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@DeleteMapping("/doctors/{username}")
 	public Integer remDoctor(@PathVariable String username) {
 		return this.as.remDoctor(username);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("/patient/add")
 	public void addPatient(@RequestBody Patient p) {
 		this.as.addPatient(p);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@GetMapping("/patients")
 	public List<Patient> getPatients() {
 		return this.as.getPatients();
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@DeleteMapping("/patients/{username}")
 	public Long deletePatient(@PathVariable String username) {
 		return this.as.remPatient(username);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@GetMapping("/patients/{username}")
 	public Patient getPatient(@PathVariable String username) {
 		return this.as.getPatient(username);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("/specialist/add")
 	public void addSpecialist(@RequestBody Specialist sp) {
 		this.as.addSpec(sp);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@DeleteMapping("/specialists/{username}")
 	public Long deleteSpecialist(@PathVariable String username) {
 		return this.as.remSpec(username);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@GetMapping("/specialists/{username}")
 	public Specialist getSpecialist(@PathVariable String username) {
 		return this.as.getSpec(username);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@GetMapping("/specialists")
 	public List<Specialist> getSpecialists() {
 		return this.as.getSpecs();
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PutMapping("/specialist/update")
 	public Specialist updateSpecialist(@RequestBody Specialist sp) {
 		return this.as.updateSpecialist(sp);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PutMapping("/patient/update")
 	public Patient updatePatient(@RequestBody Patient pt) {
 		return this.as.updatePatient(pt);
 	}
 
-	@CrossOrigin(origins = "http://localhost:3000")
+	@CrossOrigin(origins = ORIGIN_URL)
 	@PutMapping("/doctor/update")
 	public Doctor updateDoctor(@RequestBody Doctor dr) {
 		return this.as.updateDoctor(dr);
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@PutMapping("/docUpdateRequest/{patUname}/{newDocUname}")
+	public boolean changeDoc(@PathVariable String patUname, @PathVariable String newDocUname)
+	{
+		return ss.changeDoc(patUname,newDocUname);
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@GetMapping("/specialist/{specUname}/doctors")
+	public List<Doctor> getSpecDoctors(@PathVariable String specUname)
+	{
+		return ss.getSpecDocs(specUname);
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@GetMapping("/doctor/{docUname}/patients")
+	public List<Patient> getDocPatients(@PathVariable String docUname)
+	{
+		return ds.getDocPatients(docUname);
 	}
 }
