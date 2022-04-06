@@ -15,8 +15,8 @@ public class PushDApplication {
 		Mail mail = new Mail();
         mail.setMailFrom("aman.iv0012@gmail.com");
         mail.setMailTo("aman.gupta@iiitb.ac.in");
-        mail.setMailSubject("Aur Lodu");
-        mail.setMailContent("Chal Gya mail");
+        mail.setMailSubject("Daily dose of Happiness");
+        mail.setMailContent("I have chosen to be happy because it's good for my health.");
 		MailService mailService = (MailService) ctx.getBean("mailService");
         mailService.sendEmail(mail);
 	}
