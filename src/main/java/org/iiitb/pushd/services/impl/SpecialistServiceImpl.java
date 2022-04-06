@@ -4,7 +4,6 @@ import java.util.List;
 
 import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Specialist;
-import org.iiitb.pushd.models.Status;
 import org.iiitb.pushd.repositories.SpecialistRepository;
 import org.iiitb.pushd.services.SpecialistService;
 import org.springframework.beans.factory.annotation.Autowired;
