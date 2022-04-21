@@ -1,7 +1,6 @@
 package org.iiitb.pushd.repositories;
 
 
-import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Specialist;
 import org.springframework.data.jpa.repository.JpaRepository;
 

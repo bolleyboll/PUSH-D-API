@@ -1,7 +1,11 @@
 package org.iiitb.pushd.controller;
 
 import org.springframework.web.bind.annotation.RestController;
+
+import java.util.List;
+
 import org.iiitb.pushd.models.Doctor;
+import org.iiitb.pushd.models.Patient;
 import org.iiitb.pushd.services.AdminService;
 import org.iiitb.pushd.services.DoctorService;
 import org.iiitb.pushd.services.PatientService;
@@ -16,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("doctor")

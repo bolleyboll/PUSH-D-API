@@ -1,7 +1,6 @@
 package org.iiitb.pushd.services.impl;
 
 import org.iiitb.pushd.models.Patient;
-import org.iiitb.pushd.models.Status;
 import org.iiitb.pushd.repositories.PatientRepository;
 import org.iiitb.pushd.services.PatientService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,9 +21,9 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public Status updateCompletedSections(String newSectionList) {
+	public Boolean updateCompletedSections(String newSectionList) {
 		// TODO Auto-generated method stub
-		return null;
+		return true;
 	}
 
 	@Override
