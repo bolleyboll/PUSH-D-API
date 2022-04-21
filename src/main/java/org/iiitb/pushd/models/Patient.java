@@ -8,6 +8,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import java.util.Date;
 
 @Entity
 @Table(name = "patients")
@@ -29,6 +30,9 @@ public class Patient {
 	@Column(name = "email", length = 100, unique = true, nullable = false)
 	private String email;
 
+	@Column(name = "last_login", nullable = false)
+	private Date lastLogin;
+
 	@JoinColumn(name = "doctorID")
 	@ManyToOne
 	private Doctor doctor;
@@ -36,17 +40,26 @@ public class Patient {
 	public Patient() {
 	}
 
-	public Patient(Integer patientID, String username, String password, String name, String email, Doctor doctor) {
+	public Patient(Integer patientID, String username, String password, String name, String email, Date lastLogin, Doctor doctor) {
 		this.patientID = patientID;
 		this.username = username;
 		this.password = password;
 		this.name = name;
 		this.email = email;
+		this.lastLogin = lastLogin;
 		this.doctor = doctor;
 	}
 
 	public Integer getPatientID() {
 		return patientID;
+	}
+
+	public Date getLastLogin() {
+		return lastLogin;
+	}
+
+	public void setLastLogin(Date lastLogin) {
+		this.lastLogin = lastLogin;
 	}
 
 	public void setPatientID(Integer patientID) {

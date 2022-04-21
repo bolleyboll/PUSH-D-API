@@ -13,6 +13,8 @@ import org.springframework.context.event.ContextRefreshedEvent;
 import org.springframework.context.event.EventListener;
 import org.springframework.stereotype.Component;
 
+import java.util.Date;
+
 @Component
 public class Start {
 
@@ -43,11 +45,13 @@ public class Start {
 		dr.save(d);
 		dr.save(d1);
 
-		Patient p = new Patient(1, "kunals", "password", "Kunal Sharma", "Kunal.Sharma@iiitb.ac.in", d);
-		Patient p1 = new Patient(2, "suchil", "password", "Suchi Laad", "suchi.laad@iiitb.ac.in", d);
-		Patient p2 = new Patient(3, "random", "password", "RCB", "rcb@gmail.com", d1);
+		Patient p = new Patient(1, "kunals", "password", "Kunal Sharma", "Kunal.Sharma@iiitb.ac.in",new Date(), d);
+		Patient p1 = new Patient(2, "suchil", "password", "Suchi Laad", "suchi.laad@iiitb.ac.in",new Date(), d);
+		Patient p2 = new Patient(3, "nikhilm", "password", "Nikhil Mittal", "nikhil.mittal@iiitb.ac.in",new Date(), d1);
+		Patient p3 = new Patient(4, "amang", "password", "Aman Gupta", "aman.gupta@iiitb.ac.in",new Date(), d1);
 		pr.save(p);
 		pr.save(p1);
 		pr.save(p2);
+		pr.save(p3);
 	}
 }
