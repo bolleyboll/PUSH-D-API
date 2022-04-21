@@ -33,6 +33,13 @@ public class Patient {
 	@Column(name = "last_login", nullable = false)
 	private Date lastLogin;
 
+	@Column(name = "totalSections", columnDefinition = "varchar(100) default '1, 2, 3, 4, 5'")
+	private String totalSections;
+
+	@Column(name = "sectionOrder", columnDefinition = "varchar(100) default '1, 2, 3, 4, 5'")
+	private String sectionOrder;
+
+
 	@JoinColumn(name = "doctorID")
 	@ManyToOne
 	private Doctor doctor;
