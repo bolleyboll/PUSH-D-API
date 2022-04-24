@@ -33,6 +33,9 @@ public class Patient {
 	@Column(name = "last_login", nullable = false)
 	private Date lastLogin;
 
+	@Column(name = "is_active", columnDefinition = "boolean default false")
+	private Boolean isActive = false;
+
 	@Column(name = "totalSections", columnDefinition = "varchar(100) default '1, 2, 3, 4, 5'")
 	private String totalSections;
 
@@ -111,6 +114,14 @@ public class Patient {
 
 	public void setDoctor(Doctor doctor) {
 		this.doctor = doctor;
+	}
+
+	public Boolean getActive() {
+		return isActive;
+	}
+
+	public void setActive(Boolean active) {
+		isActive = active;
 	}
 
 	@Override

@@ -31,4 +31,7 @@ public class PatientServiceImpl implements PatientService {
 		return pr.findByUsernameAndPassword(username, password);
 	}
 
+	@Override
+	public Patient logout(String username) { return pr.findByUsername(username); }
+
 }

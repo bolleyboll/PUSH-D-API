@@ -25,14 +25,13 @@ public class ReminderScheduler {
     PatientRepository pr;
     //MailService mailService;
 
-    @Scheduled(fixedRate = 30000)
+    @Scheduled(fixedRate = 86400000)
     public void checkForReminder()
     {
-        //mailService = (MailService) ctx.getBean("mailService");
         List<Patient> patients = pr.findAll();
         for(Patient p : patients)
         {
-            if((new Date().getTime() - p.getLastLogin().getTime())/(1000*60) == 2)
+            if((new Date().getTime() - p.getLastLogin().getTime())/(1000*60*60) >= 23 && !p.getActive())
             {
                 getNotification(p.getEmail(),p.getName(),p.getLastLogin());
             }

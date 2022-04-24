@@ -13,6 +13,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Date;
+
 @RestController
 @RequestMapping("patient")
 public class PatientController {
@@ -44,16 +46,34 @@ public class PatientController {
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PostMapping("signin")
+	@PostMapping("/signin")
 	public ResponseEntity<String> patLogin(@RequestBody Patient pat) {
 		String uname = pat.getUsername();
 		String pass = pat.getPassword();
 
 		Patient dbPat = ps.login(uname, pass);
 		if (dbPat != null) {
+			dbPat.setActive(true);
+			updatePatient(dbPat);
 			return ResponseEntity.ok(pat.getUsername());
 		} else {
 			return ResponseEntity.ok("Username or Password don't match!");
+		}
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@PutMapping("/{username}/signout")
+	public ResponseEntity<String> patLogout(@PathVariable String username)
+	{
+		Patient dbPat = ps.logout(username);
+		if(dbPat != null) {
+			dbPat.setLastLogin(new Date());
+			dbPat.setActive(false);
+			updatePatient(dbPat);
+			return ResponseEntity.ok(username);
+		}
+		else {
+			return ResponseEntity.ok("Username doesn't exist");
 		}
 	}
 

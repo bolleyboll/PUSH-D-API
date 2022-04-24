@@ -8,4 +8,6 @@ public interface PatientService {
 	Patient login(String username, String password);
 
 	Boolean updateCompletedSections(String newSectionList);
+
+	Patient logout(String username);
 }
