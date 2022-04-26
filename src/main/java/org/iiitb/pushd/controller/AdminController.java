@@ -31,7 +31,7 @@ public class AdminController {
 	private SpecialistService ss;
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PostMapping("/admin/signin")
+	@PostMapping("signin")
 	public ResponseEntity<String> adminLogin(@RequestBody Admin admin) {
 		String uname = admin.getUsername();
 		String pass = admin.getPassword();

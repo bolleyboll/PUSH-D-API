@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("spec")
+@RequestMapping("specialist")
 public class SpecialistController {
 	private static final String ORIGIN_URL = "http://localhost:3000";
 
@@ -38,7 +38,7 @@ public class SpecialistController {
 	private SpecialistService ss;
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PostMapping("/spec/signin")
+	@PostMapping("signin")
 	public ResponseEntity<String> specLogin(@RequestBody Specialist spec) {
 		String uname = spec.getUsername();
 		String pass = spec.getPassword();
@@ -52,31 +52,31 @@ public class SpecialistController {
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PostMapping("/specialist/add")
+	@PostMapping("add")
 	public void addSpecialist(@RequestBody Specialist sp) {
 		this.as.addSpec(sp);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@DeleteMapping("/specialist/del/{username}")
+	@DeleteMapping("del/{username}")
 	public Long deleteSpecialist(@PathVariable String username) {
 		return this.as.remSpec(username);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@GetMapping("/specialist/{username}")
+	@GetMapping("{username}")
 	public Specialist getSpecialist(@PathVariable String username) {
 		return this.as.getSpec(username);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PutMapping("/specialist/update")
+	@PutMapping("update")
 	public Specialist updateSpecialist(@RequestBody Specialist sp) {
 		return this.as.updateSpecialist(sp);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@GetMapping("/specialist/{specUname}/doctors")
+	@GetMapping("{specUname}/doctors")
 	public List<Doctor> getSpecDoctors(@PathVariable String specUname) {
 		return ss.getSpecDocs(specUname);
 	}

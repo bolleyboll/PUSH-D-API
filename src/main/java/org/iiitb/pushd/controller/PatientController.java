@@ -46,7 +46,7 @@ public class PatientController {
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PostMapping("/signin")
+	@PostMapping("signin")
 	public ResponseEntity<String> patLogin(@RequestBody Patient pat) {
 		String uname = pat.getUsername();
 		String pass = pat.getPassword();
@@ -78,19 +78,19 @@ public class PatientController {
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@DeleteMapping("/patient/del/{username}")
+	@DeleteMapping("del/{username}")
 	public Long deletePatient(@PathVariable String username) {
 		return this.as.remPatient(username);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@GetMapping("/patient/{username}")
+	@GetMapping("{username}")
 	public Patient getPatient(@PathVariable String username) {
 		return this.as.getPatient(username);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PutMapping("/patient/update")
+	@PutMapping("update")
 	public Patient updatePatient(@RequestBody Patient pt) {
 		return this.as.updatePatient(pt);
 	}

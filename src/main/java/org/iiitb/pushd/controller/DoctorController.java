@@ -39,7 +39,7 @@ public class DoctorController {
 	private SpecialistService ss;
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PostMapping("/doctor/signin")
+	@PostMapping("signin")
 	public ResponseEntity<String> docLogin(@RequestBody Doctor doc) {
 		String uname = doc.getUsername();
 		String pass = doc.getPassword();
@@ -53,25 +53,25 @@ public class DoctorController {
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PostMapping("/doctor/register")
+	@PostMapping("register")
 	public void addDoctor(@RequestBody Doctor d) {
 		this.as.addDoctor(d);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@DeleteMapping("/doctor/del/{username}")
+	@DeleteMapping("del/{username}")
 	public Integer remDoctor(@PathVariable String username) {
 		return this.as.remDoctor(username);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PutMapping("/doctor/update")
+	@PutMapping("update")
 	public Doctor updateDoctor(@RequestBody Doctor dr) {
 		return this.as.updateDoctor(dr);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@GetMapping("/doctor/{docUname}/patients")
+	@GetMapping("{docUname}/patients")
 	public List<Patient> getDocPatients(@PathVariable String docUname) {
 		return ds.getDocPatients(docUname);
 	}
