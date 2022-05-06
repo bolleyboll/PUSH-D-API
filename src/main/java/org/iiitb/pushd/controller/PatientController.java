@@ -53,7 +53,7 @@ public class PatientController {
 
 		Patient dbPat = ps.login(uname, pass);
 		if (dbPat != null) {
-			dbPat.setActive(true);
+			dbPat.setIsActive(true);
 			updatePatient(dbPat);
 			return ResponseEntity.ok(pat.getUsername());
 		} else {
@@ -68,7 +68,7 @@ public class PatientController {
 		Patient dbPat = ps.logout(username);
 		if(dbPat != null) {
 			dbPat.setLastLogin(new Date());
-			dbPat.setActive(false);
+			dbPat.setIsActive(false);
 			updatePatient(dbPat);
 			return ResponseEntity.ok(username);
 		}

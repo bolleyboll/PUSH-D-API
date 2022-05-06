@@ -31,7 +31,7 @@ public class ReminderScheduler {
         List<Patient> patients = pr.findAll();
         for(Patient p : patients)
         {
-            if((new Date().getTime() - p.getLastLogin().getTime())/(1000*60*60) >= 23 && !p.getActive())
+            if((new Date().getTime() - p.getLastLogin().getTime())/(1000*60*60) >= 23 && !p.getIsActive())
             {
                 getNotification(p.getEmail(),p.getName(),p.getLastLogin());
             }
