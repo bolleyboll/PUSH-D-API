@@ -10,25 +10,25 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import org.iiitb.pushd.models.Chat;
-import org.iiitb.pushd.services.ChatService;
+import org.iiitb.pushd.models.Section;
+import org.iiitb.pushd.services.SectionService;
 
 @RestController
 @RequestMapping("chat")
-public class ChatController {
+public class SectionController {
 
 	@Autowired
-	private ChatService chatService;
+	private SectionService cs;
 
-	@GetMapping("get/{receiverId}")
-	public List<Chat> getChats(@PathVariable String receiverId) {
+	@GetMapping("get/{username}")
+	public List<Section> getResponses(@PathVariable String username) {
 
-		return this.chatService.getChats(receiverId);
+		return this.cs.getResponses(username);
 	}
 
 	@PostMapping("save")
-	public Chat addChat(@RequestBody Chat chat) {
+	public Section addEntry(@RequestBody Section response) {
 
-		return this.chatService.addChat(chat);
+		return this.cs.addEntry(response);
 	}
 }
