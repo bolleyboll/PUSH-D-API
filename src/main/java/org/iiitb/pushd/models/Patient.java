@@ -37,6 +37,30 @@ public class Patient {
 	@Column(name = "email", length = 100, unique = true, nullable = false)
 	private String email;
 
+	@Column(name = "mobile", length = 15, unique = true, nullable = false)
+	private String mobile;
+
+	@Column(name = "age", length = 3, nullable = false)
+	private Integer age;
+
+	@Column(name = "gender", length = 10, nullable = false)
+	private String gender;
+
+	@Column(name = "dob", length = 15, nullable = false)
+	private String dob;
+
+	@Column(name = "city", length = 50, nullable = false)
+	private String city;
+
+	@Column(name = "maritalStatus", length = 50, nullable = false)
+	private String maritalStatus;
+
+	@Column(name = "occupation", length = 100, nullable = false)
+	private String occupation;
+
+	@Column(name = "education", length = 100, nullable = false)
+	private String education;
+
 	@Column(name = "last_login", nullable = false)
 	private Date lastLogin;
 
@@ -49,10 +73,19 @@ public class Patient {
 	@Column(name = "sectionOrder", columnDefinition = "varchar(100) default '1, 2, 3, 4, 5'")
 	private String sectionOrder = "1, 2, 3, 4, 5";
 
-	
-
 	@JoinColumn(name = "doctorID")
 	@ManyToOne
 	private Doctor doctor;
+
+	@Column(name = "selfDiagnosis", length = 20, nullable = false)
+	private String selfDiagnosis;
 	
+	@Column(name = "soughtProfessionalHelp", length = 5, nullable = false)
+	private String soughtProfessionalHelp;
+
+	@Column(name = "currentSeekingHelp", length = 50, nullable = false)
+	private String currentSeekingHelp;
+
+	@Column(name = "registrationForm", length = 10000, nullable = false)
+	private String registrationForm;
 }
