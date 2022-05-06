@@ -14,7 +14,7 @@ import org.iiitb.pushd.models.Section;
 import org.iiitb.pushd.services.SectionService;
 
 @RestController
-@RequestMapping("chat")
+@RequestMapping("section")
 public class SectionController {
 
 	@Autowired
