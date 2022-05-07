@@ -64,7 +64,7 @@ public class AppUser implements UserDetails {
         return email;
     }
 
-   public String getUname() { return username; }
+    public String getUname() { return username; }
 
     @Override
     public boolean isAccountNonExpired() {

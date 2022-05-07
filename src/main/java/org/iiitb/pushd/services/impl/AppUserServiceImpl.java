@@ -44,21 +44,9 @@ public class AppUserServiceImpl implements AppUserService {
 
         appUserRepository.save(appUser);
 
-        String token = UUID.randomUUID().toString();
-
-        ConfirmationToken confirmationToken = new ConfirmationToken(
-                token,
-                LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15),
-                appUser
-        );
-
-        confirmationTokenService.saveConfirmationToken(
-                confirmationToken);
-
 //        TODO: CREATING TOKEN FOR EMAIL CONFIRMATION
 
-        return token;
+        return confirmationTokenService.generateNewToken(appUser);
     }
 
     @Override

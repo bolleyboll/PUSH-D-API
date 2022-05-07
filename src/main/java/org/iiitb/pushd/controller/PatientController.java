@@ -43,9 +43,18 @@ public class PatientController {
 
 	}
 
+	@CrossOrigin(origins = ORIGIN_URL)
 	@GetMapping(path = "register/confirm")
 	public String confirm(@RequestParam("token") String token) {
 		return rs.confirmToken(token);
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@GetMapping("register/resendVerification")
+	public String resendVerification(@RequestParam("userEmail") String email)
+	{
+		rs.resendVerificationToken(email);
+		return "Re-Verification sent";
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)

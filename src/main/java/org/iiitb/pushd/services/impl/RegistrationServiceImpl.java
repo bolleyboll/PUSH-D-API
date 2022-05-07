@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.Locale;
 
 @Service
 @AllArgsConstructor
@@ -63,6 +64,13 @@ public class RegistrationServiceImpl implements RegistrationService {
         );
         getConfirmationEmail(token, spe.getEmail(), spe.getName(), "specialist");
         return token;
+    }
+
+    public void resendVerificationToken(String email)
+    {
+        AppUser user = (AppUser) appUserService.loadUserByUsername(email);
+        String token = confirmationTokenService.generateNewToken(user);
+        getConfirmationEmail(token, user.getUsername(), user.getUname(), user.getAppUserRole().toString().toLowerCase(Locale.ENGLISH));
     }
 
     private void getConfirmationEmail(String token, String email, String name, String type)
