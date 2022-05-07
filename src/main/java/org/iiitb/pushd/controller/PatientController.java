@@ -1,10 +1,8 @@
 package org.iiitb.pushd.controller;
 
+import lombok.AllArgsConstructor;
 import org.iiitb.pushd.models.Patient;
-import org.iiitb.pushd.services.AdminService;
-import org.iiitb.pushd.services.DoctorService;
-import org.iiitb.pushd.services.PatientService;
-import org.iiitb.pushd.services.SpecialistService;
+import org.iiitb.pushd.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,21 +14,20 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Date;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("patient")
 public class PatientController {
 	private static final String ORIGIN_URL = "http://localhost:3000";
 
-	@Autowired
-	private AdminService as;
+	private final AdminService as;
 
-	@Autowired
-	private DoctorService ds;
+	private final DoctorService ds;
 
-	@Autowired
-	private PatientService ps;
+	private final PatientService ps;
 
-	@Autowired
-	private SpecialistService ss;
+	private final SpecialistService ss;
+
+	private final RegistrationService rs;
 
 	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("register")
@@ -38,11 +35,17 @@ public class PatientController {
 		Patient dbPat = as.getPatient(pat.getUsername());
 		if (dbPat == null) {
 			this.as.addPatient(pat);
+			rs.register(pat);
 			return ResponseEntity.ok(pat.getUsername() + " Registered");
 		} else {
 			return ResponseEntity.ok("USER ALREADY EXISTS");
 		}
 
+	}
+
+	@GetMapping(path = "register/confirm")
+	public String confirm(@RequestParam("token") String token) {
+		return rs.confirmToken(token);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)

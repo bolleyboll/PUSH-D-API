@@ -1,6 +1,8 @@
 package org.iiitb.pushd.models;
 
 public enum AppUserRole {
-    USER,
+    PATIENT,
+    DOCTOR,
+    SPECIALIST,
     ADMIN
 }

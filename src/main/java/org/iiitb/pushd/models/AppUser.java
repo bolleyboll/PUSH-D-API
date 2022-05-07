@@ -19,18 +19,17 @@ import java.util.Collections;
 @Entity
 public class AppUser implements UserDetails {
     @SequenceGenerator(
-            name = "student_sequence",
-            sequenceName = "student_sequence",
+            name = "app_user_sequence",
+            sequenceName = "app_user_sequence",
             allocationSize = 1
     )
-    @Id
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "student_sequence"
+            generator = "app_user_sequence"
     )
     private Long id;
-    private String firstName;
-    private String lastName;
+    @Id
+    private String username;
     private String email;
     private String password;
     @Enumerated(EnumType.STRING)
@@ -38,13 +37,11 @@ public class AppUser implements UserDetails {
     private Boolean locked = false;
     private Boolean enabled = false;
 
-    public AppUser(String firstName,
-                   String lastName,
+    public AppUser(String username,
                    String email,
                    String password,
                    AppUserRole appUserRole) {
-        this.firstName = firstName;
-        this.lastName = lastName;
+        this.username = username;
         this.email = email;
         this.password = password;
         this.appUserRole = appUserRole;
@@ -67,13 +64,7 @@ public class AppUser implements UserDetails {
         return email;
     }
 
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
-    }
+   public String getUname() { return username; }
 
     @Override
     public boolean isAccountNonExpired() {

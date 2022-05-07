@@ -62,6 +62,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
+	public Doctor getDoctor(String username) {
+		return dr.findByUsername(username);
+	}
+
+	@Override
 	public Patient addPatient(Patient p) {
 		return pr.save(p);
 	}

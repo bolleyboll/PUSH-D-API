@@ -22,6 +22,8 @@ public interface AdminService {
 
 	List<Doctor> getDoctors();
 
+	Doctor getDoctor(String username);
+
 	Patient addPatient(Patient p);
 
 	Long remPatient(String username);

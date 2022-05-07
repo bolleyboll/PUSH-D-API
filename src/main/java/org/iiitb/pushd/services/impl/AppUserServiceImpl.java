@@ -2,8 +2,10 @@ package org.iiitb.pushd.services.impl;
 
 import lombok.AllArgsConstructor;
 import org.iiitb.pushd.models.AppUser;
+import org.iiitb.pushd.models.ConfirmationToken;
 import org.iiitb.pushd.repositories.AppUserRepository;
 import org.iiitb.pushd.services.AppUserService;
+import org.iiitb.pushd.services.ConfirmationTokenService;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -20,6 +22,7 @@ public class AppUserServiceImpl implements AppUserService {
 
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private final ConfirmationTokenService confirmationTokenService;
 
     @Override
     public String signUpUser(AppUser appUser) {
@@ -41,9 +44,21 @@ public class AppUserServiceImpl implements AppUserService {
 
         appUserRepository.save(appUser);
 
+        String token = UUID.randomUUID().toString();
+
+        ConfirmationToken confirmationToken = new ConfirmationToken(
+                token,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusMinutes(15),
+                appUser
+        );
+
+        confirmationTokenService.saveConfirmationToken(
+                confirmationToken);
+
 //        TODO: CREATING TOKEN FOR EMAIL CONFIRMATION
 
-        return "token";
+        return token;
     }
 
     @Override

@@ -23,12 +23,12 @@ public class MailServiceImpl implements MailService {
  
         try {
  
-            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true);
+            MimeMessageHelper mimeMessageHelper = new MimeMessageHelper(mimeMessage, true, "utf-8");
  
             mimeMessageHelper.setSubject(mail.getMailSubject());
             mimeMessageHelper.setFrom(new InternetAddress(mail.getMailFrom(), "PUSH - D"));
             mimeMessageHelper.setTo(mail.getMailTo());
-            mimeMessageHelper.setText(mail.getMailContent());
+            mimeMessageHelper.setText(mail.getMailContent(),true);
  
             mailSender.send(mimeMessageHelper.getMimeMessage());
  

@@ -2,40 +2,29 @@ package org.iiitb.pushd.controller;
 
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Specialist;
-import org.iiitb.pushd.services.AdminService;
-import org.iiitb.pushd.services.DoctorService;
-import org.iiitb.pushd.services.PatientService;
-import org.iiitb.pushd.services.SpecialistService;
+import org.iiitb.pushd.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("specialist")
 public class SpecialistController {
 	private static final String ORIGIN_URL = "http://localhost:3000";
 
-	@Autowired
-	private AdminService as;
+	private final AdminService as;
 
-	@Autowired
-	private DoctorService ds;
+	private final DoctorService ds;
 
-	@Autowired
-	private PatientService ps;
+	private final PatientService ps;
 
-	@Autowired
-	private SpecialistService ss;
+	private final SpecialistService ss;
+
+	private final RegistrationService rs;
 
 	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("signin")
@@ -49,6 +38,25 @@ public class SpecialistController {
 		} else {
 			return ResponseEntity.ok("Username or Password don't match!");
 		}
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@PostMapping("register")
+	public ResponseEntity<String> addDoctor(@RequestBody Specialist spe)
+	{
+		Specialist dbSpe = as.getSpec(spe.getUsername());
+		if (dbSpe == null) {
+			this.as.addSpec(spe);
+			rs.register(spe);
+			return ResponseEntity.ok(spe.getUsername() + " Registered");
+		} else {
+			return ResponseEntity.ok("USER ALREADY EXISTS");
+		}
+	}
+
+	@GetMapping(path = "register/confirm")
+	public String confirm(@RequestParam("token") String token) {
+		return rs.confirmToken(token);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)

@@ -1,42 +1,31 @@
 package org.iiitb.pushd.controller;
 
-import org.springframework.web.bind.annotation.RestController;
+import lombok.AllArgsConstructor;
+import org.iiitb.pushd.services.*;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Patient;
-import org.iiitb.pushd.services.AdminService;
-import org.iiitb.pushd.services.DoctorService;
-import org.iiitb.pushd.services.PatientService;
-import org.iiitb.pushd.services.SpecialistService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 
 @RestController
+@AllArgsConstructor
 @RequestMapping("doctor")
 public class DoctorController {
 	private static final String ORIGIN_URL = "http://localhost:3000";
 
-	@Autowired
-	private AdminService as;
+	private final AdminService as;
 
-	@Autowired
-	private DoctorService ds;
+	private final DoctorService ds;
 
-	@Autowired
-	private PatientService ps;
+	private final PatientService ps;
 
-	@Autowired
-	private SpecialistService ss;
+	private final SpecialistService ss;
+
+	private final RegistrationService rs;
 
 	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("signin")
@@ -54,8 +43,21 @@ public class DoctorController {
 
 	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("register")
-	public void addDoctor(@RequestBody Doctor d) {
-		this.as.addDoctor(d);
+	public ResponseEntity<String> addDoctor(@RequestBody Doctor doc)
+	{
+		Doctor dbDoc = as.getDoctor(doc.getUsername());
+		if (dbDoc == null) {
+			this.as.addDoctor(doc);
+			rs.register(doc);
+			return ResponseEntity.ok(doc.getUsername() + " Registered");
+		} else {
+			return ResponseEntity.ok("USER ALREADY EXISTS");
+		}
+	}
+
+	@GetMapping(path = "register/confirm")
+	public String confirm(@RequestParam("token") String token) {
+		return rs.confirmToken(token);
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
