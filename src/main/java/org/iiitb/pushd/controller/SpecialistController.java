@@ -4,6 +4,7 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import org.iiitb.pushd.models.Doctor;
+import org.iiitb.pushd.models.ResetPasswordModel;
 import org.iiitb.pushd.models.Specialist;
 import org.iiitb.pushd.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,8 @@ public class SpecialistController {
 
 	private final RegistrationService rs;
 
+	private final UnableLoginService uls;
+
 	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("signin")
 	public ResponseEntity<String> specLogin(@RequestBody Specialist spec) {
@@ -38,6 +41,29 @@ public class SpecialistController {
 		} else {
 			return ResponseEntity.ok("Username or Password don't match!");
 		}
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@GetMapping("signin/resetpassword")
+	public String initResetPassword(@RequestParam("userEmail")String email)
+	{
+		uls.initResetPassword(email);
+		return "Reset password link sent";
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@GetMapping("signin/resendresetpassword")
+	public String resendResetPassword(@RequestParam("userEmail") String email)
+	{
+		uls.resendPasswordChangeToken(email);
+		return "Re-Verification sent";
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@PostMapping("signin/resetpassword")
+	public String resetPassword(@RequestParam("token") String token, @RequestBody ResetPasswordModel resetPasswordModel)
+	{
+		return uls.resetPassword(token,resetPasswordModel.getOldPassword(),resetPasswordModel.getNewPassword());
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
@@ -54,9 +80,18 @@ public class SpecialistController {
 		}
 	}
 
+	@CrossOrigin(origins = ORIGIN_URL)
 	@GetMapping(path = "register/confirm")
 	public String confirm(@RequestParam("token") String token) {
 		return rs.confirmToken(token);
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@GetMapping("register/resendVerification")
+	public String resendVerification(@RequestParam("userEmail") String email)
+	{
+		rs.resendVerificationToken(email);
+		return "Re-Verification sent";
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)

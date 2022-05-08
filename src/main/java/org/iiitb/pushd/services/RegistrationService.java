@@ -10,6 +10,6 @@ public interface RegistrationService {
     String register(Doctor doc);
     String register(Specialist spe);
     String confirmToken(String token);
-    String buildEmail(String name, String link);
+    String buildConfirmationEmail(String name, String link);
     void resendVerificationToken(String email);
 }

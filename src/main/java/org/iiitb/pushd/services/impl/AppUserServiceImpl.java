@@ -12,6 +12,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 import java.util.UUID;
 
 @Service
@@ -23,6 +24,16 @@ public class AppUserServiceImpl implements AppUserService {
     private final AppUserRepository appUserRepository;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
     private final ConfirmationTokenService confirmationTokenService;
+
+    @Override
+    public void saveAppUser(AppUser appUser) {
+        appUserRepository.save(appUser);
+    }
+
+    @Override
+    public AppUser getAppUserByEmailAndPassword(String email, String password) {
+        return appUserRepository.findByEmailAndPassword(email,password);
+    }
 
     @Override
     public String signUpUser(AppUser appUser) {
@@ -42,7 +53,7 @@ public class AppUserServiceImpl implements AppUserService {
 
         appUser.setPassword(encodedPassword);
 
-        appUserRepository.save(appUser);
+        saveAppUser(appUser);
 
 //        TODO: CREATING TOKEN FOR EMAIL CONFIRMATION
 

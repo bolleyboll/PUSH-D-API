@@ -16,6 +16,8 @@ public interface AdminService {
 
 	List<Admin> getAdmins();
 
+	Admin getAdmin(String username);
+
 	Doctor addDoctor(Doctor d);
 
 	Integer remDoctor(String username);

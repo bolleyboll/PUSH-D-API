@@ -76,12 +76,12 @@ public class RegistrationServiceImpl implements RegistrationService {
     private void getConfirmationEmail(String token, String email, String name, String type)
     {
 
-        String link = "http://localhost:8080/" + type + "/register/confirm?token=" + token;
+        String link = "http://localhost:8080/" + type + "/signin/confirm?token=" + token;
         Mail mail = new Mail();
         mail.setMailFrom("kunal0199@gmail.com");
         mail.setMailTo(email);
         mail.setMailSubject("Email Verification");
-        mail.setMailContent(buildEmail(name, link));
+        mail.setMailContent(buildConfirmationEmail(name, link));
         mailService.sendEmail(mail);
 
     }
@@ -109,7 +109,7 @@ public class RegistrationServiceImpl implements RegistrationService {
         return "confirmed";
     }
 
-    public String buildEmail(String name, String link) {
+    public String buildConfirmationEmail(String name, String link) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
