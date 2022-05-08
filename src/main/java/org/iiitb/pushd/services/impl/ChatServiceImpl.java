@@ -19,16 +19,12 @@ public class ChatServiceImpl implements ChatService {
 	@Override
 	public List<Chat> getChats(String id) {
 		return chatDao.findByReceiverId(id);
-
-		// return chatDao.findById(courseId).get();
-
 	}
 
 	@Override
 	public Chat addChat(Chat chat) {
 		chatDao.save(chat);
 		return chat;
-
 	}
 
 }

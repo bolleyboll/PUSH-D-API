@@ -70,6 +70,9 @@ public class Patient {
 	@Column(name = "totalSections", columnDefinition = "varchar(100) default '1, 2, 3, 4, 5'")
 	private String totalSections = "1, 2, 3, 4, 5";
 
+	@Column(name = "completedSections", columnDefinition = "varchar(100) default ''")
+	private String completedSections = "";
+
 	@Column(name = "sectionOrder", columnDefinition = "varchar(100) default '1, 2, 3, 4, 5'")
 	private String sectionOrder = "1, 2, 3, 4, 5";
 

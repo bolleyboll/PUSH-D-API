@@ -16,14 +16,7 @@ public class PatientServiceImpl implements PatientService {
 
 	@Override
 	public Patient savePatient(Patient p) {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public Boolean updateCompletedSections(String newSectionList) {
-		// TODO Auto-generated method stub
-		return true;
+		return pr.save(p);
 	}
 
 	@Override
@@ -32,6 +25,20 @@ public class PatientServiceImpl implements PatientService {
 	}
 
 	@Override
-	public Patient logout(String username) { return pr.findByUsername(username); }
+	public Patient logout(String username) {
+		return pr.findByUsername(username);
+	}
+
+	@Override
+	public Boolean updateCompletedSections(String username, String updatedCompletionList) {
+		Patient p = pr.findByUsername(username);
+		p.setCompletedSections(updatedCompletionList);
+		Patient dbPat = pr.save(p);
+		if (dbPat.getSectionOrder().equalsIgnoreCase(updatedCompletionList)) {
+			return true;
+		} else {
+			return false;
+		}
+	}
 
 }

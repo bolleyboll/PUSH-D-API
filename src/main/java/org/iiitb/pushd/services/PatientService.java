@@ -7,7 +7,7 @@ public interface PatientService {
 
 	Patient login(String username, String password);
 
-	Boolean updateCompletedSections(String newSectionList);
+	Boolean updateCompletedSections(String username, String updatedCompletionList);
 
 	Patient logout(String username);
 }
