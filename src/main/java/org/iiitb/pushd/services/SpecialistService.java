@@ -6,7 +6,7 @@ import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Specialist;
 
 public interface SpecialistService {
-	Specialist saveSpec(Specialist d);
+	Specialist saveSpec(Specialist s);
 
 	Specialist login(String username, String password);
 

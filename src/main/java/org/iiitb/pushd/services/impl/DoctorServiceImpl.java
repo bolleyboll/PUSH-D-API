@@ -10,6 +10,7 @@ import org.iiitb.pushd.services.DoctorService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
 @Service
 @Transactional
 public class DoctorServiceImpl implements DoctorService {
@@ -18,11 +19,10 @@ public class DoctorServiceImpl implements DoctorService {
 	private DoctorRepository dr;
 	@Autowired
 	private PatientRepository pr;
-	
+
 	@Override
 	public Doctor saveDoctor(Doctor d) {
-		// TODO Auto-generated method stub
-		return null;
+		return dr.save(d);
 	}
 
 	@Override
@@ -32,8 +32,14 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public boolean alterPatientSecOrder(String username, String newOrder) {
-		// TODO Auto-generated method stub
-		return false;
+		Patient p = pr.findByUsername(username);
+		p.setSectionOrder(newOrder);
+		Patient dbPat = pr.save(p);
+		if (dbPat.getSectionOrder().equalsIgnoreCase(newOrder)) {
+			return true;
+		} else {
+			return false;
+		}
 	}
 
 	@Override

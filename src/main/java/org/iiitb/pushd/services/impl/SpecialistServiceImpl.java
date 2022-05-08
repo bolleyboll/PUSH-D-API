@@ -25,9 +25,8 @@ public class SpecialistServiceImpl implements SpecialistService {
 	private PatientRepository pr;
 
 	@Override
-	public Specialist saveSpec(Specialist d) {
-		// TODO Auto-generated method stub
-		return null;
+	public Specialist saveSpec(Specialist s) {
+		return sr.save(s);
 	}
 
 	@Override
