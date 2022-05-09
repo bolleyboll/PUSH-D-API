@@ -35,7 +35,7 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
  
     @Override
     public String generateNewToken(AppUser appUser) {
-        String token = UUID.randomUUID().toString();
+        String token = UUID.randomUUID().toString().substring(0,5);
         PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByAppUser_Username(appUser.getUname());
         if(passwordResetToken != null)
         {

@@ -1,6 +1,5 @@
 package org.iiitb.pushd.schedulingtasks;
 
-import lombok.AllArgsConstructor;
 import org.iiitb.pushd.mail.MailService;
 import org.iiitb.pushd.models.Mail;
 import org.iiitb.pushd.models.Patient;
@@ -15,10 +14,10 @@ import java.util.Date;
 import java.util.List;
 
 @Component
-@AllArgsConstructor
 public class ReminderScheduler {
 
-    private final MailService mailService;
+    @Autowired
+    ApplicationContext ctx;
 
     SimpleDateFormat formatter = new SimpleDateFormat("dd-MM-yyyy @ HH:mm:ss");
 
@@ -46,7 +45,8 @@ public class ReminderScheduler {
             mail.setMailFrom("kunal0199@gmail.com");
             mail.setMailTo(mailID);
             mail.setMailSubject("Reminder");
-            mail.setMailContent(buildReminderEmail(pname, "http://localhost:3000/",formatter.format(lastLogin)));
+            mail.setMailContent(buildReminderEmail(pname,"http://localhost:3000/",formatter.format(lastLogin)));
+            MailService mailService = (MailService) ctx.getBean("mailService");
             mailService.sendEmail(mail);
         }
     }
