@@ -65,7 +65,7 @@ public class RootController {
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@PutMapping("/{username}/changedoctor")
+	@GetMapping("changedoctor/{username}")
 	public ResponseEntity<Patient> assignPatient(@PathVariable String username)
 	{
 		Patient pat = ss.assignChangeDoctor(username);
