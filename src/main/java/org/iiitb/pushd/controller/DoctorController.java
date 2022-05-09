@@ -131,11 +131,9 @@ public class DoctorController {
 	@PutMapping("sectionorder/{username}")
 	public ResponseEntity<String> reorderSection(@PathVariable String username, @RequestBody String sectionOrder)
 	{
-		String newOrder = sectionOrder.split(": ")[1];
-		newOrder = newOrder.split("\"")[1];
-		if(ds.alterPatientSecOrder(username,newOrder))
+		if(ds.alterPatientSecOrder(username,sectionOrder))
 		{
-			return ResponseEntity.ok("New order updated to " + newOrder);
+			return ResponseEntity.ok("New order updated to " + sectionOrder);
 		}
 		else
 		{

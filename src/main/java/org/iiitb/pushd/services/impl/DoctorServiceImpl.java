@@ -35,10 +35,18 @@ public class DoctorServiceImpl implements DoctorService {
 
 	@Override
 	public boolean alterPatientSecOrder(String username, String newOrder) {
+
+		System.out.println(newOrder);
+		String order = newOrder;
+		order = order.split(":")[1];
+		System.out.println(order);
+		order = order.split("\"")[1];
+		System.out.println(order);
+
 		Patient p = pr.findByUsername(username);
-		p.setSectionOrder(newOrder);
+		p.setSectionOrder(order);
 		Patient dbPat = pr.save(p);
-		if (dbPat.getSectionOrder().equalsIgnoreCase(newOrder)) {
+		if (dbPat.getSectionOrder().equalsIgnoreCase(order)) {
 			return true;
 		} else {
 			return false;
