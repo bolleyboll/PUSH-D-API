@@ -8,6 +8,7 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class ResetPasswordModel {
-    private String oldPassword;
-    private String newPassword;
+    private String email;
+    private String newpassword;
+    private String token;
 }

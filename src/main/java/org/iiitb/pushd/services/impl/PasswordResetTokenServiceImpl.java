@@ -29,6 +29,11 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
     }
 
     @Override
+    public PasswordResetToken getTokenByEmail(String email) {
+        return passwordResetTokenRepository.findByAppUser_Username(email);
+    }
+
+    @Override
     public void setTokenIsUsed(String token) {
         passwordResetTokenRepository.setTokenUsed(token, true);
     }
@@ -39,6 +44,9 @@ public class PasswordResetTokenServiceImpl implements PasswordResetTokenService 
         PasswordResetToken passwordResetToken = passwordResetTokenRepository.findByAppUser_Username(appUser.getUname());
         if(passwordResetToken != null)
         {
+            passwordResetToken.setCreatedAt(LocalDateTime.now());
+            passwordResetToken.setExpiresAt(LocalDateTime.now().plusMinutes(15));
+            passwordResetToken.setTokenUsed(false);
             passwordResetToken.setToken(token);
         }
         else

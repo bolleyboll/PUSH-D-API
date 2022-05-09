@@ -62,9 +62,9 @@ public class DoctorController {
 
 	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("signin/resetpassword")
-	public String resetPassword(@RequestParam("token") String token, @RequestBody ResetPasswordModel resetPasswordModel)
+	public String resetPassword(@RequestBody ResetPasswordModel resetPasswordModel)
 	{
-		return uls.resetPassword(token,resetPasswordModel.getOldPassword(),resetPasswordModel.getNewPassword());
+		return uls.resetPassword(resetPasswordModel.getEmail(),resetPasswordModel.getNewpassword(),resetPasswordModel.getToken());
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)

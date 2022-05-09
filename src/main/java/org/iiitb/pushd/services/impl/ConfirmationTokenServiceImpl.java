@@ -39,6 +39,8 @@ public class ConfirmationTokenServiceImpl implements ConfirmationTokenService {
         ConfirmationToken confirmationToken = confirmationTokenRepository.findByAppUser_Username(appUser.getUname());
         if(confirmationToken != null)
         {
+            confirmationToken.setCreatedAt(LocalDateTime.now());
+            confirmationToken.setExpiresAt(LocalDateTime.now().plusMinutes(15));
             confirmationToken.setToken(token);
         }
         else

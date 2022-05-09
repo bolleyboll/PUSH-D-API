@@ -60,12 +60,12 @@ public class SpecialistController {
 		return "Re-Verification sent";
 	}
 
-	@CrossOrigin(origins = ORIGIN_URL)
-	@PostMapping("signin/resetpassword")
-	public String resetPassword(@RequestParam("token") String token, @RequestBody ResetPasswordModel resetPasswordModel)
-	{
-		return uls.resetPassword(token,resetPasswordModel.getOldPassword(),resetPasswordModel.getNewPassword());
-	}
+    @CrossOrigin(origins = ORIGIN_URL)
+    @PostMapping("signin/resetpassword")
+    public String resetPassword(@RequestBody ResetPasswordModel resetPasswordModel)
+    {
+        return uls.resetPassword(resetPasswordModel.getEmail(),resetPasswordModel.getNewpassword(),resetPasswordModel.getToken());
+    }
 
 	@CrossOrigin(origins = ORIGIN_URL)
 	@PostMapping("register")

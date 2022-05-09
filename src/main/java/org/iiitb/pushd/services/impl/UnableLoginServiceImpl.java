@@ -36,58 +36,57 @@ public class UnableLoginServiceImpl implements UnableLoginService {
     private void getPasswordChangeEmail(String token, String email, String name, String type)
     {
 
-        String link = "http://localhost:8080/" + type + "/signin/resetpassword?token=" + token;
+        String link = "http://localhost:3000/" + type + "/signin/resetpassword";
         Mail mail = new Mail();
         mail.setMailFrom("kunal0199@gmail.com");
         mail.setMailTo(email);
         mail.setMailSubject("Reset Password");
-        mail.setMailContent(buildPasswordChangeEmail(name, link));
+        mail.setMailContent(buildPasswordChangeEmail(name, link, token));
         mailService.sendEmail(mail);
 
     }
 
-    public boolean changePassword(String email, String oldPassword, String newPassword) {
+    public boolean changePassword(String email, String newPassword) {
         String newEncodedPassword = bCryptPasswordEncoder.encode(newPassword);
         AppUser appUser = (AppUser) appUserService.loadUserByUsername(email);
-        if(bCryptPasswordEncoder.matches(oldPassword,appUser.getPassword()))
+        appUser.setPassword(newEncodedPassword);
+        appUserService.saveAppUser(appUser);
+        if(appUser.getAppUserRole() == AppUserRole.PATIENT)
         {
-            appUser.setPassword(newEncodedPassword);
-            appUserService.saveAppUser(appUser);
-            if(appUser.getAppUserRole() == AppUserRole.PATIENT)
-            {
-                Patient pat = adminService.getPatient(appUser.getUname());
-                pat.setPassword(newPassword);
-                patientService.savePatient(pat);
-            }
-            else if(appUser.getAppUserRole() == AppUserRole.DOCTOR)
-            {
-                Doctor doc = adminService.getDoctor(appUser.getUname());
-                doc.setPassword(newPassword);
-                doctorService.saveDoctor(doc);
-            }
-            else if(appUser.getAppUserRole() == AppUserRole.SPECIALIST)
-            {
-                Specialist spe = adminService.getSpec(appUser.getUname());
-                spe.setPassword(newPassword);
-                specialistService.saveSpec(spe);
-            }
-            else
-            {
-                Admin adm = adminService.getAdmin(appUser.getUname());
-                adm.setPassword(newPassword);
-                adminService.saveAdmin(adm);
-            }
-            return true;
+            Patient pat = adminService.getPatient(appUser.getUname());
+            pat.setPassword(newPassword);
+            patientService.savePatient(pat);
+        }
+        else if(appUser.getAppUserRole() == AppUserRole.DOCTOR)
+        {
+            Doctor doc = adminService.getDoctor(appUser.getUname());
+            doc.setPassword(newPassword);
+            doctorService.saveDoctor(doc);
+        }
+        else if(appUser.getAppUserRole() == AppUserRole.SPECIALIST)
+        {
+            Specialist spe = adminService.getSpec(appUser.getUname());
+            spe.setPassword(newPassword);
+            specialistService.saveSpec(spe);
         }
         else
         {
-            return false;
+            Admin adm = adminService.getAdmin(appUser.getUname());
+            adm.setPassword(newPassword);
+            adminService.saveAdmin(adm);
         }
+        return true;
+
     }
 
     @Override
-    public String resetPassword(String token, String oldPassword, String newPassword) {
-        PasswordResetToken passwordResetToken = passwordResetTokenService.getToken(token).orElseThrow(()->new IllegalStateException("token not found"));
+    public String resetPassword(String email, String newPassword, String token) {
+        AppUser appUser = (AppUser) appUserService.loadUserByUsername(email);
+        PasswordResetToken passwordResetToken = passwordResetTokenService.getTokenByEmail(appUser.getUname());
+        if(passwordResetToken == null)
+        {
+            System.out.println("Token entry not found");
+        }
         if(passwordResetToken.isTokenUsed())
         {
             throw new IllegalStateException("link already used");
@@ -98,8 +97,7 @@ public class UnableLoginServiceImpl implements UnableLoginService {
             throw new IllegalStateException("password change token expired");
         }
 
-        AppUser appUser = passwordResetToken.getAppUser();
-        if(changePassword(appUser.getEmail(), oldPassword, newPassword))
+        if(changePassword(email, newPassword))
         {
             passwordResetToken.setTokenUsed(true);
             passwordResetTokenService.savePasswordResetToken(passwordResetToken);
@@ -119,7 +117,7 @@ public class UnableLoginServiceImpl implements UnableLoginService {
     }
 
     @Override
-    public String buildPasswordChangeEmail(String name, String link) {
+    public String buildPasswordChangeEmail(String name, String link, String token) {
         return "<div style=\"font-family:Helvetica,Arial,sans-serif;font-size:16px;margin:0;color:#0b0c0c\">\n" +
                 "\n" +
                 "<span style=\"display:none;font-size:1px;color:#fff;max-height:0\"></span>\n" +
@@ -175,7 +173,7 @@ public class UnableLoginServiceImpl implements UnableLoginService {
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
                 "      <td style=\"font-family:Helvetica,Arial,sans-serif;font-size:19px;line-height:1.315789474;max-width:560px\">\n" +
                 "        \n" +
-                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> Please click on the below link to reset your password: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Reset Now</a> </p></blockquote>\n Link will expire in 15 minutes. <p>See you soon</p>" +
+                "            <p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">Hi " + name + ",</p><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\">" + token + " is the verification token for password reset. Please click on the below link to reset your password: </p><blockquote style=\"Margin:0 0 20px 0;border-left:10px solid #b1b4b6;padding:15px 0 0.1px 15px;font-size:19px;line-height:25px\"><p style=\"Margin:0 0 20px 0;font-size:19px;line-height:25px;color:#0b0c0c\"> <a href=\"" + link + "\">Reset Now</a> </p></blockquote>\n Token will expire in 15 minutes. <p>See you soon</p>" +
                 "        \n" +
                 "      </td>\n" +
                 "      <td width=\"10\" valign=\"middle\"><br></td>\n" +
