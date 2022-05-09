@@ -96,7 +96,7 @@ public class DoctorController {
 	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
-	@DeleteMapping("del/{username}")
+	@GetMapping("del/{username}")
 	public Integer remDoctor(@PathVariable String username) {
 		return this.as.remDoctor(username);
 	}
@@ -124,6 +124,22 @@ public class DoctorController {
 		else
 		{
 			return ResponseEntity.ok("Section doesn't exist");
+		}
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@PutMapping("sectionorder/{username}")
+	public ResponseEntity<String> reorderSection(@PathVariable String username, @RequestBody String sectionOrder)
+	{
+		String newOrder = sectionOrder.split(": ")[1];
+		newOrder = newOrder.split("\"")[1];
+		if(ds.alterPatientSecOrder(username,newOrder))
+		{
+			return ResponseEntity.ok("New order updated to " + newOrder);
+		}
+		else
+		{
+			return ResponseEntity.ok("New order not updated");
 		}
 	}
 }

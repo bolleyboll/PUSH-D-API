@@ -2,6 +2,8 @@ package org.iiitb.pushd.services.impl;
 
 import java.util.Arrays;
 import java.util.List;
+import java.util.function.Function;
+import java.util.stream.Collectors;
 
 import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Patient;
@@ -43,20 +45,31 @@ public class DoctorServiceImpl implements DoctorService {
 		}
 	}
 
+	public static <T, U> List<U>
+	convertStringListToIntList(List<T> listOfString,
+							   Function<T, U> function)
+	{
+		return listOfString.stream()
+				.map(function)
+				.collect(Collectors.toList());
+	}
+
 	@Override
 	public boolean restrictPatientSec(String username, Integer section) {
 		Patient pat = pr.findByUsername(username);
 		List<String> sections = Arrays.asList(pat.getSectionOrder().split(", ", -2));
-		List<Integer> sectionsInt = (List<Integer>) sections.stream().mapToInt(num -> Integer.parseInt(num));
+		List<Integer> sectionsInt = convertStringListToIntList(sections, Integer::parseInt);
 		if(sectionsInt.contains(section))
 		{
 			sectionsInt.remove(section);
-			String newSection = null;
+			String newSection = "";
+			System.out.println(sectionsInt);
 			for(int i = 0; i < sectionsInt.size()-1; i++)
 			{
-				newSection.concat(sectionsInt.get(i) + ", ");
+				newSection += sectionsInt.get(i).toString().concat(", ");
 			}
-			newSection.concat(sectionsInt.get(sectionsInt.size()-1) + "");
+			newSection+=sectionsInt.get(sectionsInt.size()-1).toString();
+			System.out.println(newSection);
 
 			pat.setSectionOrder(newSection);
 			pr.save(pat);
