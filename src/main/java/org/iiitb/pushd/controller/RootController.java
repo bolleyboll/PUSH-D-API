@@ -64,4 +64,13 @@ public class RootController {
 		return ss.changeDoc(patUname, newDocUname);
 	}
 
+	@CrossOrigin(origins = ORIGIN_URL)
+	@PutMapping("/{username}/changedoctor")
+	public ResponseEntity<Patient> assignPatient(@PathVariable String username)
+	{
+		Patient pat = ss.assignChangeDoctor(username);
+		ps.savePatient(pat);
+		return ResponseEntity.ok().body(pat);
+	}
+
 }

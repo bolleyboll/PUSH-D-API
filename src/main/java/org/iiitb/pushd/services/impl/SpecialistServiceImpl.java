@@ -1,7 +1,9 @@
 package org.iiitb.pushd.services.impl;
 
 import java.util.List;
+import java.util.Random;
 
+import lombok.AllArgsConstructor;
 import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Patient;
 import org.iiitb.pushd.models.Specialist;
@@ -15,14 +17,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @Transactional
+@AllArgsConstructor
 public class SpecialistServiceImpl implements SpecialistService {
 
-	@Autowired
-	private SpecialistRepository sr;
-	@Autowired
-	private DoctorRepository dr;
-	@Autowired
-	private PatientRepository pr;
+	private final SpecialistRepository sr;
+	private final DoctorRepository dr;
+	private final PatientRepository pr;
+	private final Random rand = new Random();
 
 	@Override
 	public Specialist saveSpec(Specialist s) {
@@ -41,6 +42,24 @@ public class SpecialistServiceImpl implements SpecialistService {
 	@Override
 	public List<Doctor> getSpecDocs(String specUname) {
 		return dr.findDoctorsBySpecialist_Username(specUname);
+	}
+
+	@Override
+	public Patient assignChangeDoctor(String username) {
+		Patient dbPat = pr.findByUsername(username);
+		List<Doctor> doctors = dr.findAll();
+		Doctor doc;
+		if (dbPat.getDoctor() != null)
+		{
+			do{
+				doc = doctors.get(rand.nextInt(doctors.size()));
+			}while(dbPat.getDoctor().equals(doc));
+		} else
+		{
+			doc = doctors.get(rand.nextInt(doctors.size()));
+		}
+		dbPat.setDoctor(doc);
+		return dbPat;
 	}
 
 	@Override

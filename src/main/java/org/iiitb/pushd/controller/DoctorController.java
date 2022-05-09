@@ -112,4 +112,18 @@ public class DoctorController {
 	public List<Patient> getDocPatients(@PathVariable String docUname) {
 		return ds.getDocPatients(docUname);
 	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@PutMapping("restrictsection/{username}/{sec}")
+	public ResponseEntity<String> restrictSections(@PathVariable String username, @PathVariable Integer sec)
+	{
+		if(ds.restrictPatientSec(username,sec))
+		{
+			return ResponseEntity.ok("Restricted section " + sec);
+		}
+		else
+		{
+			return ResponseEntity.ok("Section doesn't exist");
+		}
+	}
 }

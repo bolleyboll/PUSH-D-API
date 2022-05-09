@@ -45,6 +45,7 @@ public class SpecialistController {
 
 	@CrossOrigin(origins = ORIGIN_URL)
 	@GetMapping("signin/resetpassword")
+
 	public String initResetPassword(@RequestParam("userEmail")String email)
 	{
 		uls.initResetPassword(email);

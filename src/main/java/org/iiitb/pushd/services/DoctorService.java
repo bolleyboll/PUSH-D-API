@@ -13,4 +13,6 @@ public interface DoctorService {
 	List<Patient> getDocPatients(String docUname);
 
 	boolean alterPatientSecOrder(String username, String newOrder);
+
+	boolean restrictPatientSec(String username, Integer section);
 }

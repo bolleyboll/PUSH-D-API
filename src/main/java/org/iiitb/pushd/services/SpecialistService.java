@@ -3,6 +3,7 @@ package org.iiitb.pushd.services;
 import java.util.List;
 
 import org.iiitb.pushd.models.Doctor;
+import org.iiitb.pushd.models.Patient;
 import org.iiitb.pushd.models.Specialist;
 
 public interface SpecialistService {
@@ -13,4 +14,6 @@ public interface SpecialistService {
 	boolean changeDoc(String pat, String newDocUname);
 
 	List<Doctor> getSpecDocs(String specUname);
+
+	Patient assignChangeDoctor(String username);
 }

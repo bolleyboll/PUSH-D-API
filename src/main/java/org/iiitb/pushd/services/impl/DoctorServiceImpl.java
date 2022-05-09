@@ -1,5 +1,6 @@
 package org.iiitb.pushd.services.impl;
 
+import java.util.Arrays;
 import java.util.List;
 
 import org.iiitb.pushd.models.Doctor;
@@ -38,6 +39,31 @@ public class DoctorServiceImpl implements DoctorService {
 		if (dbPat.getSectionOrder().equalsIgnoreCase(newOrder)) {
 			return true;
 		} else {
+			return false;
+		}
+	}
+
+	@Override
+	public boolean restrictPatientSec(String username, Integer section) {
+		Patient pat = pr.findByUsername(username);
+		List<String> sections = Arrays.asList(pat.getSectionOrder().split(", ", -2));
+		List<Integer> sectionsInt = (List<Integer>) sections.stream().mapToInt(num -> Integer.parseInt(num));
+		if(sectionsInt.contains(section))
+		{
+			sectionsInt.remove(section);
+			String newSection = null;
+			for(int i = 0; i < sectionsInt.size()-1; i++)
+			{
+				newSection.concat(sectionsInt.get(i) + ", ");
+			}
+			newSection.concat(sectionsInt.get(sectionsInt.size()-1) + "");
+
+			pat.setSectionOrder(newSection);
+			pr.save(pat);
+			return true;
+		}
+		else
+		{
 			return false;
 		}
 	}
