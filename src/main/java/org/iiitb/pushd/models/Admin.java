@@ -18,9 +18,9 @@ import lombok.NoArgsConstructor;
 @Table(name = "admins")
 public class Admin {
 
-	@Column(name = "adminID", unique = true, nullable = false, updatable = false)
+	@Column(name = "adminId", unique = true, nullable = false, updatable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
-	private Integer adminID;
+	private Integer adminId;
 
 	@Id
 	@Column(name = "username", unique = true, length = 20, nullable = false)
