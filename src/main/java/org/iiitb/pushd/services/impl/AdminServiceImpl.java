@@ -1,6 +1,7 @@
 package org.iiitb.pushd.services.impl;
 
 import java.util.List;
+import java.util.Random;
 
 import org.iiitb.pushd.models.Admin;
 import org.iiitb.pushd.models.Doctor;
@@ -31,6 +32,8 @@ public class AdminServiceImpl implements AdminService {
 	@Autowired
 	private SpecialistRepository sr;
 
+	Random rand = new Random();
+
 	@Override
 	public Admin saveAdmin(Admin a) {
 		return ar.save(a);
@@ -52,7 +55,11 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Doctor addDoctor(Doctor d) {
+	public Doctor addDoctor(Doctor d)
+	{
+		List<Specialist> specialists = sr.findAll();
+		Specialist spe = specialists.get(rand.nextInt(specialists.size()));
+		d.setSpecialist(spe);
 		return dr.save(d);
 	}
 
@@ -87,7 +94,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Patient getPatient(String username) {
+	public Patient getPatient(String username)
+	{
 		return pr.findByUsername(username);
 	}
 
@@ -121,12 +129,17 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public Patient updatePatient(Patient patient) {
+	public Patient updatePatient(Patient patient)
+	{
+		Patient dbPat = pr.findByUsername(patient.getUsername());
+		patient.setDoctor(dbPat.getDoctor());
 		return pr.save(patient);
 	}
 
 	@Override
 	public Doctor updateDoctor(Doctor doctor) {
+		Doctor dbDoc = dr.findByUsername(doctor.getUsername());
+		doctor.setSpecialist(dbDoc.getSpecialist());
 		return dr.save(doctor);
 
 	}
