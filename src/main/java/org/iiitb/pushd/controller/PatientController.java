@@ -77,28 +77,6 @@ public class PatientController {
 		}
 	}
 
-	@CrossOrigin(origins = ORIGIN_URL)
-	@GetMapping("signin/resetpassword")
-	public String initResetPassword(@RequestParam("userEmail")String email)
-	{
-		uls.initResetPassword(email);
-		return "Reset password link sent";
-	}
-
-	@CrossOrigin(origins = ORIGIN_URL)
-	@GetMapping("signin/resendresetpassword")
-	public String resendResetPassword(@RequestParam("userEmail") String email)
-	{
-		uls.resendPasswordChangeToken(email);
-		return "Re-Verification sent";
-	}
-
-	@CrossOrigin(origins = ORIGIN_URL)
-	@PostMapping("signin/resetpassword")
-	public String resetPassword(@RequestBody ResetPasswordModel resetPasswordModel)
-	{
-		return uls.resetPassword(resetPasswordModel.getEmail(),resetPasswordModel.getNewpassword(),resetPasswordModel.getToken());
-	}
 
 	@CrossOrigin(origins = ORIGIN_URL)
 	@PutMapping("/{username}/signout")

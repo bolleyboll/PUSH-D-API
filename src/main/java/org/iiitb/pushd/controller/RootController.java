@@ -2,37 +2,29 @@ package org.iiitb.pushd.controller;
 
 import java.util.List;
 
-import org.iiitb.pushd.models.Admin;
-import org.iiitb.pushd.models.Doctor;
-import org.iiitb.pushd.models.Patient;
-import org.iiitb.pushd.models.Specialist;
-import org.iiitb.pushd.services.AdminService;
-import org.iiitb.pushd.services.DoctorService;
-import org.iiitb.pushd.services.PatientService;
-import org.iiitb.pushd.services.SpecialistService;
+import lombok.AllArgsConstructor;
+import org.iiitb.pushd.models.*;
+import org.iiitb.pushd.services.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
+@AllArgsConstructor
 public class RootController {
 	private static final String ORIGIN_URL = "http://localhost:3000";
 
-	@Autowired
-	private AdminService as;
+	private final AdminService as;
 
-	@Autowired
-	private DoctorService ds;
+	private final DoctorService ds;
 
-	@Autowired
-	private PatientService ps;
+	private final PatientService ps;
 
-	@Autowired
-	private SpecialistService ss;
+	private final SpecialistService ss;
+
+	private final UnableLoginService uls;
+
+
 
 	@CrossOrigin(origins = ORIGIN_URL)
 	@GetMapping("/admins")
@@ -71,6 +63,29 @@ public class RootController {
 		Patient pat = ss.assignChangeDoctor(username);
 		ps.savePatient(pat);
 		return ResponseEntity.ok().body(pat);
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@GetMapping("signin/resetpassword")
+	public String initResetPassword(@RequestParam("userEmail")String email)
+	{
+		uls.initResetPassword(email);
+		return "Reset password link sent";
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@GetMapping("signin/resendresetpassword")
+	public String resendResetPassword(@RequestParam("userEmail") String email)
+	{
+		uls.resendPasswordChangeToken(email);
+		return "Re-Verification sent";
+	}
+
+	@CrossOrigin(origins = ORIGIN_URL)
+	@PostMapping("signin/resetpassword")
+	public String resetPassword(@RequestBody ResetPasswordModel resetPasswordModel)
+	{
+		return uls.resetPassword(resetPasswordModel.getEmail(),resetPasswordModel.getNewpassword(),resetPasswordModel.getToken());
 	}
 
 }
