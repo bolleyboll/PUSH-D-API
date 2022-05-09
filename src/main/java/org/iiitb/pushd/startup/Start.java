@@ -36,7 +36,7 @@ public class Start {
 		System.out.println("Startup Starts");
 
 		Admin a = new Admin();
-		a.setAdminID(1);
+		a.setAdminId(1);
 		a.setUsername("bolleyboll");
 		a.setPassword("password");
 		a.setName("Aman Gupta");
