@@ -35,7 +35,7 @@ public class UnableLoginServiceImpl implements UnableLoginService {
     private void getPasswordChangeEmail(String token, String email, String name, String type)
     {
 
-        String link = "http://localhost:3000/" + type + "/signin/resetpassword";
+        String link = "http://localhost:3000/enterfpd";
         Mail mail = new Mail();
         mail.setMailFrom("kunal0199@gmail.com");
         mail.setMailTo(email);
