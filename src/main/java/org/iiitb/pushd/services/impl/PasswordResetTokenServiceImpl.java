@@ -2,7 +2,6 @@ package org.iiitb.pushd.services.impl;
 
 import lombok.AllArgsConstructor;
 import org.iiitb.pushd.models.AppUser;
-import org.iiitb.pushd.models.ConfirmationToken;
 import org.iiitb.pushd.models.PasswordResetToken;
 import org.iiitb.pushd.repositories.PasswordResetTokenRepository;
 import org.iiitb.pushd.services.PasswordResetTokenService;

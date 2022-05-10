@@ -1,7 +1,6 @@
 package org.iiitb.pushd.controller;
 
 import lombok.AllArgsConstructor;
-import org.iiitb.pushd.models.ResetPasswordModel;
 import org.iiitb.pushd.services.*;
 import org.springframework.web.bind.annotation.*;
 
@@ -9,7 +8,6 @@ import java.util.List;
 
 import org.iiitb.pushd.models.Doctor;
 import org.iiitb.pushd.models.Patient;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 
 @RestController

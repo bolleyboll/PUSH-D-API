@@ -5,7 +5,6 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import org.iiitb.pushd.models.*;
 import org.iiitb.pushd.services.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

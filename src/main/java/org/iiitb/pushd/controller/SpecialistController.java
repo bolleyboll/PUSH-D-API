@@ -4,10 +4,8 @@ import java.util.List;
 
 import lombok.AllArgsConstructor;
 import org.iiitb.pushd.models.Doctor;
-import org.iiitb.pushd.models.ResetPasswordModel;
 import org.iiitb.pushd.models.Specialist;
 import org.iiitb.pushd.services.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 

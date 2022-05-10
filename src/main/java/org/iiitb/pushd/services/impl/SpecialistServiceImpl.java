@@ -11,7 +11,6 @@ import org.iiitb.pushd.repositories.DoctorRepository;
 import org.iiitb.pushd.repositories.PatientRepository;
 import org.iiitb.pushd.repositories.SpecialistRepository;
 import org.iiitb.pushd.services.SpecialistService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 

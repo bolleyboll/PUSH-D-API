@@ -3,7 +3,6 @@ package org.iiitb.pushd.services.impl;
 import lombok.AllArgsConstructor;
 import org.iiitb.pushd.models.AppUser;
 import org.iiitb.pushd.models.ConfirmationToken;
-import org.iiitb.pushd.repositories.AppUserRepository;
 import org.iiitb.pushd.repositories.ConfirmationTokenRepository;
 import org.iiitb.pushd.services.ConfirmationTokenService;
 import org.springframework.stereotype.Service;

@@ -1,7 +1,6 @@
 package org.iiitb.pushd.controller;
 
 import org.iiitb.pushd.models.Admin;
-import org.iiitb.pushd.repositories.AdminRepository;
 import org.iiitb.pushd.services.AdminService;
 import org.iiitb.pushd.services.DoctorService;
 import org.iiitb.pushd.services.PatientService;

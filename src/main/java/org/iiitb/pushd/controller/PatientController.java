@@ -1,11 +1,8 @@
 package org.iiitb.pushd.controller;
 
 import lombok.AllArgsConstructor;
-import org.iiitb.pushd.models.PasswordResetToken;
 import org.iiitb.pushd.models.Patient;
-import org.iiitb.pushd.models.ResetPasswordModel;
 import org.iiitb.pushd.services.*;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -70,6 +67,7 @@ public class PatientController {
 		Patient dbPat = ps.login(uname, pass);
 		if (dbPat != null) {
 			dbPat.setIsActive(true);
+			dbPat.setLastLogin(new Date());
 			updatePatient(dbPat);
 			return ResponseEntity.ok(pat.getUsername());
 		} else {
