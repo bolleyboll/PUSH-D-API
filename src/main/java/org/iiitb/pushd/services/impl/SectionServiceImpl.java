@@ -1,5 +1,6 @@
 package org.iiitb.pushd.services.impl;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 import org.iiitb.pushd.models.Section;
@@ -23,7 +24,10 @@ public class SectionServiceImpl implements SectionService{
 
 	@Override
 	public Section addEntry(Section response) {
+		response.setResponseTime(LocalDateTime.now());
 		return sr.save(response);
 	}
-	
+
+
+
 }

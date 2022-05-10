@@ -8,4 +8,5 @@ public interface SectionService {
 	public List<Section> getResponses(String username);
 
 	public Section addEntry(Section response);
+
 }

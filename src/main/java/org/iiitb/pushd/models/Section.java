@@ -1,11 +1,7 @@
 package org.iiitb.pushd.models;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
+import java.time.LocalDateTime;
 import java.util.Date;
 
 import lombok.AllArgsConstructor;
@@ -17,20 +13,22 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "sections")
+@IdClass(SectionId.class)
 public class Section {
-	@Id
 	@Column(name = "entryId", unique = true, nullable = false, updatable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer entryId;
 
+	@Id
 	@Column(name = "username", length = 100, nullable = false)
 	private String username;
 
+	@Id
 	@Column(name = "sectionId", length = 100, nullable = false)
 	private String sectionId;
 
 	@Column(name = "responseTime", length = 100, nullable = false)
-	private Date responseTime;
+	private LocalDateTime responseTime;
 
 	@Column(name = "response", length = 10000, nullable = false)
 	private String response;
