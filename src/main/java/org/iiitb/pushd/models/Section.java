@@ -13,17 +13,18 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @Entity
 @Table(name = "sections")
-@IdClass(SectionId.class)
+// @IdClass(SectionId.class)
 public class Section {
+	@Id
 	@Column(name = "entryId", unique = true, nullable = false, updatable = false)
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Integer entryId;
 
-	@Id
+	// @Id
 	@Column(name = "username", length = 100, nullable = false)
 	private String username;
 
-	@Id
+	// @Id
 	@Column(name = "sectionId", length = 100, nullable = false)
 	private String sectionId;
 
