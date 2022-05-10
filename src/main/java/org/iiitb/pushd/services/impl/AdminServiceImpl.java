@@ -80,6 +80,9 @@ public class AdminServiceImpl implements AdminService {
 
 	@Override
 	public Patient addPatient(Patient p) {
+		List<Doctor> doctors = dr.findAll();
+		Doctor doc = doctors.get(rand.nextInt(doctors.size()));
+		p.setDoctor(doc);
 		return pr.save(p);
 	}
 
